@@ -1,0 +1,36 @@
+/* @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800;900&display=swap'); */
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700;900&display=swap');
+:root{
+  /* font-family: 'Poppins', sans-serif; */
+  --font-family: 'Roboto', sans-serif;
+  --Yellow-color:#FFE505;
+  --red-color: #ff0000;
+  --heading-font:30px;
+  --semi-heading-font:25px;
+  --small-heading:18px;
+  --regular-font:16px;
+  --blue-color:#00a8e8;
+  --blue-hover:#3e92cc;
+  --white-color:#ffffff;
+  --orange-color:#FE6E00;
+  --pink-shadow-color:#d08e90;
+  --dark-pink:#D44C9C;
+  --light-chocolate-color:#A86E58;
+  --lavander-color:#EE82EE;
+  --green-shad:#A4DE02;
+  --ink-color:#333399;
+  --ink-hover-color:#001C3D;
+  --skyblue-color:#dcf0fa;
+}
+body {
+  margin: 0;
+  font-family: var(--font-family);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}
+

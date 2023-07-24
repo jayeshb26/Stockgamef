@@ -1,0 +1,110 @@
+h1,
+h2,
+.h1,
+.h2 {
+  font-size: var(--heading-font);
+}
+
+h3,
+h4,
+.h3,
+.h4 {
+  font-size: var(--semi-heading-font);
+  font-family: var(--font-family);
+}
+
+h5,
+h6,
+.h5,
+.h6 {
+  font-size: var(--small-heading);
+  font-family: var(--font-family);
+}
+
+span,
+p {
+  font-size: var(--regular-font);
+  margin-bottom: 10px;
+  font-family: var(--font-family);
+}
+ul{
+    list-style-type: none;
+    padding-left: 0px;
+    margin-bottom: 0px;
+}
+.blue-btn {
+  background-color: var(--blue-color) ;
+  font-size: var(--regular-font) ;
+  color: var(--white-color) ;
+  font-weight: 500;
+  font-family: var(--font-family);
+}
+.blue-btn:active{
+  background-color: var(--blue-color) !important;
+  font-size: var(--regular-font) !important;
+  color: var(--white-color) !important;
+  font-weight: 500;
+  font-family: var(--font-family);
+  border: var(--blue-color) !important;
+}
+.blue-btn:hover{
+    background-color: var(--blue-hover);
+    color: var(--white-color);
+    transition: 0.3s ease;
+    font-family: var(--font-family);
+}
+.orange-bg{
+    background-color: var(--orange-color);
+    color: var(--white-color);
+    font-family: var(--font-family);
+}
+.pinkShadow-bg{
+    background-color: var(--pink-shadow-color);
+    color: var(--white-color);
+    font-family: var(--font-family);
+}
+.darkpink-bg{
+    background-color: var(--dark-pink);
+    color: var(--white-color);
+    font-family: var(--font-family);
+}
+.blue-bg{
+    background-color: var(--blue-color);
+    color: var(--white-color);
+    font-family: var(--font-family);
+}
+.lightchocolate-bg{
+    background-color: var(--light-chocolate-color);
+    color: var(--white-color);
+    font-family: var(--font-family);
+}
+.lavandercolor-bg{
+    background-color: var(--lavander-color);
+    color: var(--white-color);
+    font-family: var(--font-family);
+}
+.greenshad-bg{
+    background-color: var(--green-shad);
+    color: var(--white-color);
+    font-family: var(--font-family);
+}
+.inkcolor-bg{
+  background-color: var(--ink-color);
+  color: var(--white-color);
+  font-family: var(--font-family);
+}
+.inkcolor-bg:hover{
+  background-color: var(--ink-hover-color);
+  color: var(--white-color);
+  font-family: var(--font-family);
+}
+.inkcolor-bg:active{
+  background-color: var(--ink-hover-color) !important;
+  color: var(--white-color) !important;
+  font-family: var(--font-family);
+}
+.inkcolor-bg:focus{
+  background-color: var(--ink-hover-color);
+  color: var(--white-color);
+  font-family: var(--font-family);
+}

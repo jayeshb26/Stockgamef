@@ -1,0 +1,32 @@
+.top-wrapper {
+  background-color: var(--red-color);
+  padding: 5px;
+  display: flex;
+  /* width: 100%; */
+  /* max-height: 50px; */
+  color: var(--Yellow-color);
+}
+
+.top-ul {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  width: 100%;
+}
+
+.top-li {
+  display: inline-block;
+  margin-right: 20px;
+  font-size: var(--regular-font);
+}
+
+.btn {
+  display: inline-block;
+  padding: 6px 25px;
+  margin: 5px;
+  cursor: pointer;
+  border-radius: 4px;
+}
