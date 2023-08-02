@@ -41,7 +41,6 @@ ul{
 }
 .blue-btn:active{
   background-color: var(--blue-color) !important;
-  font-size: var(--regular-font) !important;
   color: var(--white-color) !important;
   font-weight: 500;
   font-family: var(--font-family);
@@ -52,6 +51,13 @@ ul{
     color: var(--white-color);
     transition: 0.3s ease;
     font-family: var(--font-family);
+}
+.blue-btn:focus-visible{
+  background-color: var(--blue-color) !important;
+  color: var(--white-color) !important;
+  font-weight: 500;
+  font-family: var(--font-family);
+  border: var(--blue-color) !important;
 }
 .orange-bg{
     background-color: var(--orange-color);

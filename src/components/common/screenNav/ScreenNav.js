@@ -1,18 +1,17 @@
-import React from 'react'
-import './ScreenNav.css'
+import React, { useState } from "react";
+import "./ScreenNav.css";
+import STKCard from "../STKCards/STKCard";
+import { MRKRows } from "../../../Utilities";
 const ScreenNav = () => {
+  const [rows, setrows] = useState(MRKRows);
+  useState(() => {}, [rows]);
   return (
-    <div>
-        <ul className='screen_nav'>
-            <li><span className='h3'>Market</span></li>
-            <li><button className='btn inkcolor-bg'>Open</button></li>
-            <li><button className='btn inkcolor-bg'>Close</button></li>
-            <li><button className='btn inkcolor-bg'>Jodi</button></li>
-            <li><button className='btn inkcolor-bg'>Panel</button></li>
-            <li><button className='btn inkcolor-bg'>Qty</button></li>
-        </ul>
+    <div className="screen_wrapper">
+      {rows && rows.map((dataObject, index) => (
+        <STKCard data={dataObject} />
+      ))}
     </div>
-  )
-}
+  );
+};
 
-export default ScreenNav
+export default ScreenNav;

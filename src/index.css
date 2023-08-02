@@ -9,6 +9,7 @@
   --semi-heading-font:25px;
   --small-heading:18px;
   --regular-font:16px;
+  --small-font:14px;
   --blue-color:#00a8e8;
   --blue-hover:#3e92cc;
   --white-color:#ffffff;
@@ -21,12 +22,14 @@
   --ink-color:#333399;
   --ink-hover-color:#001C3D;
   --skyblue-color:#dcf0fa;
+  --black-color:#000000;
 }
 body {
   margin: 0;
-  font-family: var(--font-family);
+  font-family: var(--font-family) !important;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background-color: #cbcbcba3 !important;
 }
 
 code {
