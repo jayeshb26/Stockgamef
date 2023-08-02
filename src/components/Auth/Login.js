@@ -4,23 +4,21 @@ const Login = () => {
   return (
     <div className="login_form">
       <div class="conter">
+        <div className="login_logo">
+          <img src="/images/matka.png" alt="" />
+        </div>
         <h1>Login</h1>
-        <form method="post">
-          <div class="txt_field">
-            <input type="text" required />
-            <span></span>
-            <label>UserName</label>
+        <form>
+          <div className="input_wrapper">
+            <label htmlFor="Login ID">Login ID: </label>
+              <input type="text" />
           </div>
-          <div class="txt_field">
-            <input type="password" required />
-            <span></span>
-            <label>Password</label>
+          <div className="input_wrapper">
+            <label htmlFor="Login ID">password: </label>
+              <input type="text" />
           </div>
-          <div class="pass">Forget Password?</div>
-          <input type="submit" value="Login" />
-          <div class="signup_link">
-            No a member?
-            <span>signup</span>
+          <div className="input_wrapper">
+            <button className="btn btn-login" type="button">Login</button>
           </div>
         </form>
       </div>

@@ -21,10 +21,10 @@ const Topnav = () => {
     <div className='top-wrapper'>
         <ul className='top-ul'>
             <li className='top-li'>
-                <span className='h4'>Welcome Online Matka (Demo ID)</span>
+                <span className='h5'>Welcome Online Matka (Demo ID)</span>
             </li>
             <li>
-                <span className='h4'>Current Time {date} </span>
+                <span className='h5'>Current Time {date} </span>
             </li>
             <li>
                 <span>

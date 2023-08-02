@@ -1,0 +1,18 @@
+.stock_wrapper {
+    height: calc(100% - 226px);
+}
+.check_stock {
+    display: block;
+    width: 100%;
+    text-align: center;
+}
+.form-check {
+    display: inline-block;
+    min-height: 1.5rem;
+    padding-left: 2.5em;
+    margin-bottom: 0.125rem;
+    padding-right: 2rem;
+    margin-right: 0.5rem;
+    background: #fff;
+    border: 1px solid;
+}

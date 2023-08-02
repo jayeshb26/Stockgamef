@@ -1,7 +1,16 @@
-import React from 'react'
+import React, { useState } from 'react'
 import './MrkHeader.css';
 import Topnav from '../Topnav/Topnav';
+import CommonModal from '../common-modal/CommonModal';
 const MrkHeader = () => {
+  const [showModal, setShowModal] = useState(false);
+  const handleShowModal = () => {
+    setShowModal(true);
+  };
+
+  const handleCloseModal = () => {
+    setShowModal(false);
+  };
   return (
     <div className='nav navbar'>
       <div className="navbar_wrapper">
@@ -12,11 +21,11 @@ const MrkHeader = () => {
           <Topnav />
           <div className="user-screens">
             <ul>
-              <li><button className='btn blue-btn'>Account</button></li>
-              <li><button className='btn blue-btn'>Password</button></li>
-              <li><button className='btn blue-btn'>Reprint</button></li>
-              <li><button className='btn blue-btn'>Cancel</button></li>
-              <li><button className='btn blue-btn'>Result</button></li>
+              <li><button className='btn blue-btn' onClick={handleShowModal}>Account</button></li>
+              <li><button className='btn blue-btn' onClick={handleShowModal}>Password</button></li>
+              <li><button className='btn blue-btn' onClick={handleShowModal}>Reprint</button></li>
+              <li><button className='btn blue-btn' onClick={handleShowModal}>Cancel</button></li>
+              <li><button className='btn blue-btn' onClick={handleShowModal}>Result</button></li>
             </ul>
           </div>
           <div className="market-list">
@@ -53,6 +62,12 @@ const MrkHeader = () => {
           </div>
         </div>
       </div>
+      <CommonModal
+        show={showModal}
+        onHide={handleCloseModal}
+        title="Example Modal"
+        body="This is a common modal "
+      />
     </div>
   )
 }

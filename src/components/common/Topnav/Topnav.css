@@ -4,6 +4,7 @@
   display: flex;
   /* width: 100%; */
   /* max-height: 50px; */
+  max-height: 40px;
   color: var(--Yellow-color);
 }
 
@@ -25,8 +26,9 @@
 
 .btn {
   display: inline-block;
-  padding: 6px 25px;
+  padding: 3px 20px;
   margin: 5px;
   cursor: pointer;
   border-radius: 4px;
+  font-size: var(--small-font);
 }

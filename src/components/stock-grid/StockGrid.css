@@ -1,0 +1,19 @@
+.stk_grid input[type="text"] {
+    max-width: 88px;
+    margin: 6px;
+    text-align: center;
+}
+.bg_purpel{
+    background-color: blueviolet;
+}
+.left_side {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    max-width: 100px;
+    align-items: center;
+    justify-content: flex-end;
+}
+.right_side{
+    max-width: calc(100% - 100px);
+}
