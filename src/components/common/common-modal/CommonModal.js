@@ -1,7 +1,8 @@
 import React from 'react';
+import './CommonModal.css'
 import { Modal, Button } from 'react-bootstrap';
 
-const CommonModal = ({ show, onHide, title, body }) => {
+const CommonModal = ({ show, onHide, title, body,footer }) => {
   return (
     <Modal show={show} onHide={onHide}>
       <Modal.Header closeButton>
@@ -9,9 +10,7 @@ const CommonModal = ({ show, onHide, title, body }) => {
       </Modal.Header>
       <Modal.Body>{body}</Modal.Body>
       <Modal.Footer>
-        <Button variant="dark" onClick={onHide}>
-          Close
-        </Button>
+        {footer}
       </Modal.Footer>
     </Modal>
   );

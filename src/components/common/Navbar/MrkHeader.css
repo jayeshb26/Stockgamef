@@ -4,7 +4,19 @@
 }
 .navbar_wrapper{
     width: 100%;
+}
+.navbar_wrapper ul{
     display: flex;
+    justify-content: flex-start;
+    /* background: #2F4F4E; */
+    background: var(--dark-light);
+    height: 40px;
+}
+.navbar_wrapper ul li{
+    width: 100%;
+    padding: 8px;
+    border-right: 1px solid;
+    text-align: center;
 }
 .logo{
     display: inline-block;
@@ -50,4 +62,39 @@
 }
 .market-list p{
     margin-bottom: 5px;
+}
+.hidden{
+    display: none;
+}
+.display-picture{
+    position: relative;
+}
+.display-picture img{
+    border-radius: 50%;
+}
+.show_profile{
+    position: absolute;
+    z-index: 500;
+    border: none;
+    right: 20px;
+}
+.profile_UL{
+    display: flex;
+    flex-direction: column;
+    background: #121212 !important;
+    padding: 8px;
+    height: 100% !important;
+}
+.profile_UL li{
+    border: none;
+    min-width: 150px;
+    border-right: none !important;
+}
+.profile_UL li a{
+    color: var(--white-color);
+    text-decoration: none;
+}
+.profile_UL li:hover{
+    background-color: var(--bg-semi-dark);
+    cursor: pointer;
 }

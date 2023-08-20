@@ -1,0 +1,258 @@
+import React, { useEffect, useState } from "react";
+import "./STKGrid.css";
+// import CommonModal from "../common/common-modal/CommonModal";
+
+// const array = Array.from({ length: 100,value: 0, roq: 12},);
+const Colarray = Array.from({ length: 10 });
+const Rowarray = Array.from({ length: 10 });
+const array = [];
+for (let index = 0; index < 100; index++) {
+  array.push({ value: index * 2, className: null });
+}
+const Footer = ({ close }) => {
+  return (
+    <>
+      <div className="cmp_footer_wrapper">
+        <button className="btn danger-btn" onClick={close}>
+          Close
+        </button>{" "}
+        &nbsp;
+        <button className="btn success-btn">Save</button>
+      </div>
+    </>
+  );
+};
+const Inputs = ({ close, addPrice, setAddStockprice }) => {
+  return (
+    <>
+      <div className="inputs_wrapper">
+        <label htmlFor="Price">Enter Price&nbsp;:</label>&nbsp;
+        <input
+          type="text"
+          value={addPrice}
+          onChange={(e) => setAddStockprice(e.target.value)}
+          placeholder="Enter bid price.."
+        />
+        {addPrice}
+      </div>
+    </>
+  );
+};
+const initialData = array
+const STKGrid = () => {
+  const [currentColor, setCurrentColor] = useState("white");
+  const [showModal, setShowModal] = useState(false);
+  const [addPrice, setAddStockprice] = useState("");
+  const [activeCellIndex, setActiveCellIndex] = useState(-1); // -1 for no active cell
+  const [modifiedValues, setModifiedValues] = useState(
+    array.map((item) => item.value)
+    );
+    const [myData, setMyData] = useState(initialData);
+  const handleShowModal = () => {
+    setShowModal(true);
+  };
+
+  const handleCloseModal = () => {
+    setShowModal(false);
+  };
+
+  const handleCellClick = (index) => {
+    setActiveCellIndex(index);
+  };
+  const handleInputBlur = (index) => {
+    // Update modifiedValues when input field loses focus
+    const newModifiedValues = [...modifiedValues];
+    newModifiedValues[index] = array[index];
+    setModifiedValues(newModifiedValues);
+  };
+  // const handleInputChange = (e, index) => {
+  //   const newModifiedValues = [...modifiedValues];
+  //   newModifiedValues[index] = e.target.value;
+  //   setModifiedValues(newModifiedValues);
+  // };
+  const handleInputChange = (e, index) => {
+    const newModifiedValues = [...modifiedValues];
+    newModifiedValues[index] = e.target.value;
+    setModifiedValues(newModifiedValues);
+  
+    const updatedArray = [...array];
+    updatedArray[index].value = e.target.value;
+    setMyData(updatedArray);
+  };
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentColor(getRandomColor());
+    }, 1000);
+
+    return () => clearInterval(interval);
+  }, [addPrice]);
+  const changeColumn = (e, index) => {
+    for (let i = 0; i < 10; i++) {
+      var currentIndex = index + 1 * i * 10;
+      array[currentIndex].value = e.target.value;
+      array[currentIndex].className = "colmun_selected";
+    }
+  };
+  const changeRow = (e, index) => {
+    for (let i = 0; i < 10; i++) {
+      var currentIndex = i + index * 10;
+      array[currentIndex].value = e.target.value;
+      array[currentIndex].className = "row_selected";
+    }
+  };
+  // const getFocus = () =>{
+  //   console.log('focus')
+  // }
+  useEffect(() => {
+    const handleKeyDown = (e) => {
+      if (e.key === "ArrowUp") {
+        e.preventDefault();
+        const newIndex = activeCellIndex - 10;
+        if (newIndex >= 0) {
+          updateModifiedValue();
+          setActiveCellIndex(newIndex);
+        }
+      } else if (e.key === "ArrowDown") {
+        e.preventDefault();
+        const newIndex = activeCellIndex + 10;
+        if (newIndex < array.length) {
+          updateModifiedValue();
+          setActiveCellIndex(newIndex);
+        }
+      } else if (e.key === "ArrowLeft") {
+        e.preventDefault();
+        const newIndex = activeCellIndex - 1;
+        if (newIndex >= 0 && newIndex % 10 !== 9) {
+          updateModifiedValue();
+          setActiveCellIndex(newIndex);
+        }
+      } else if (e.key === "ArrowRight") {
+        e.preventDefault();
+        const newIndex = activeCellIndex + 1;
+        if (newIndex < array.length && newIndex % 10 !== 0) {
+          updateModifiedValue();
+          setActiveCellIndex(newIndex);
+        }
+      } else if (e.key === "Tab") {
+        e.preventDefault();
+        const newIndex = e.shiftKey
+          ? (activeCellIndex - 1 + array.length) % array.length
+          : (activeCellIndex + 1) % array.length;
+        updateModifiedValue();
+        setActiveCellIndex(newIndex);
+      } else {
+        // ... handle other key presses for value update
+      }
+    };
+  
+    const updateModifiedValue = () => {
+      console.log('array',JSON.stringify(array))
+      if (activeCellIndex !== -1) {
+        const newModifiedValues = [...modifiedValues];
+        newModifiedValues[activeCellIndex] = array[activeCellIndex].value;
+        setModifiedValues(newModifiedValues);
+      }
+    };
+  
+    window.addEventListener("keydown", handleKeyDown);
+  
+    return () => {
+      window.removeEventListener("keydown", handleKeyDown);
+    };
+  
+  }, [activeCellIndex, modifiedValues]);
+  
+  
+  useEffect(() => {
+    const updatedArray = array.map((item, index) => ({
+      ...item,
+      value: modifiedValues[index],
+    }));
+    
+    // Update the main array with modified values
+    // This is important to keep the array in sync with modifiedValues
+    setMyData(updatedArray);
+  }, [modifiedValues]);
+  return (
+    <>
+      <div className="d-flex">
+        <div className="top_black_block"></div>
+        <div className="TopSTKGrid">
+          {Colarray.map((item, index) => {
+            return (
+              <input
+                type="text"
+                placeholder={index}
+                key={index}
+                onChange={(e) => changeColumn(e, index)}
+                name=""
+                id=""
+              />
+            );
+          })}
+        </div>
+      </div>
+      <div className="d-flex">
+        <div className="LeftSTKGrid">
+          {Rowarray.map((item, index) => {
+            return (
+              <input
+                type="text"
+                placeholder={index}
+                onChange={(e) => changeRow(e, index)}
+                key={index}
+                name=""
+                id=""
+              />
+            );
+          })}
+        </div>
+        <div className="grid_wrapper">
+          <ul>
+            {array.map((item, index) => (
+              <li
+                key={index}
+                className={`stocks ${item.className}`}
+                onClick={() => handleCellClick(index)}
+                style={{ color: getRandomColor(index) }}
+              >
+                <a href="javascript:void(0);">
+                  <span>Reliance</span>
+                  {activeCellIndex === index ? (
+                    <input
+                      type="text"
+                      value={item.value}
+                      onChange={(e) => handleInputChange(e, index)}
+                      onBlur={() => handleInputBlur(index)}
+                      autoFocus
+                    />
+                  ) : (
+                    <p>{item.value}</p>
+                  )}
+                  {/* <p>{item.value}</p> */}
+                  {/* <input type="text" value={item.value} /> */}
+                </a>
+              </li>
+            ))}
+          </ul>
+        </div>
+        {/* <CommonModal
+          show={showModal}
+          onHide={handleCloseModal}
+          title="Bid Price"
+          body={
+            <Inputs addPrice={addPrice} setAddStockprice={setAddStockprice} />
+          }
+          footer={<Footer close={handleCloseModal} />}
+        /> */}
+      </div>
+    </>
+  );
+};
+
+const getRandomColor = (index) => {
+  const colors = ["#E60000", "#32cd32", "#0069cf", "#fd5602"];
+  return colors[Math.floor(Math.random() * colors.length)];
+};
+
+export default STKGrid;

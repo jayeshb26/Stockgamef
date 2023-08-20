@@ -4,7 +4,7 @@
     align-items: center;
     width: 100%;
     height: 100vh;
-    background-color: #660710;
+    background-color: var(--bg-dark);
     color: var(--white-color);
 }
 .conter {
@@ -16,6 +16,7 @@
     text-align: center;
     padding: 20px 0 20px 0;
     border-bottom: 1px solid silver;
+    text-transform: uppercase;
   }
   .conter form {
     padding: 0 40px;
@@ -25,9 +26,15 @@
     margin: 20px 0;
   }
   .input_wrapper label{
-    min-width: 130px;
+    min-width: 120px;
   }
-
+  .input_wrapper input{
+    width: 200px;
+    height: 30px;
+  }
+  .input_wrapper button{
+    width: 100%;
+  }
   .btn_custom{
     display: inline-block;
     outline: 0;

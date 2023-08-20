@@ -1,74 +1,45 @@
 import React, { useState } from 'react'
 import './MrkHeader.css';
-import Topnav from '../Topnav/Topnav';
-import CommonModal from '../common-modal/CommonModal';
-const MrkHeader = () => {
-  const [showModal, setShowModal] = useState(false);
-  const handleShowModal = () => {
-    setShowModal(true);
-  };
+import { Dropdown, DropdownButton } from 'react-bootstrap';
 
-  const handleCloseModal = () => {
-    setShowModal(false);
-  };
+const MrkHeader = () => {
+  const [isProfilevisible, setProfileVisible] = useState(false)
+  const profileClick = () => {
+    setProfileVisible((prevState) => !prevState);
+  }
   return (
-    <div className='nav navbar'>
-      <div className="navbar_wrapper">
-        <div className="logo">
-          <img src="/images/matka.png" alt="logo" />
-        </div>
-        <div className="flex_wrapper">
-          <Topnav />
-          <div className="user-screens">
-            <ul>
-              <li><button className='btn blue-btn' onClick={handleShowModal}>Account</button></li>
-              <li><button className='btn blue-btn' onClick={handleShowModal}>Password</button></li>
-              <li><button className='btn blue-btn' onClick={handleShowModal}>Reprint</button></li>
-              <li><button className='btn blue-btn' onClick={handleShowModal}>Cancel</button></li>
-              <li><button className='btn blue-btn' onClick={handleShowModal}>Result</button></li>
-            </ul>
-          </div>
-          <div className="market-list">
-            <ul>
-              <li className='orange-bg'>
-                <p>Time Bazar</p>
-                <p>146-19-270</p>
-              </li>
-              <li className='pinkShadow-bg'>
-                <p>Time Bazar</p>
-                <p>146-19-270</p>
-              </li>
-              <li className='darkpink-bg'>
-                <p>Time Bazar</p>
-                <p>146-19-270</p>
-              </li>
-              <li className='blue-bg'>
-                <p>Time Bazar</p>
-                <p>146-19-270</p>
-              </li>
-              <li className='lightchocolate-bg'>
-                <p>Time Bazar</p>
-                <p>146-19-270</p>
-              </li>
-              <li className='lavandercolor-bg'>
-                <p>Time Bazar</p>
-                <p>146-19-270</p>
-              </li>
-              <li className='greenshad-bg'>
-                <p>Time Bazar</p>
-                <p>146-19-270</p>
-              </li>
-            </ul>
-          </div>
+    <>
+      <div className="nav navbar">
+        <div className="navbar_wrapper">
+          <ul>
+            <li><span>Stock Skill</span></li>
+            <li><span>27/08/2023</span></li>
+            <li><span>3:00 PM</span></li>
+            <li><span>3:10 PM</span></li>
+            <li><span>4:00</span></li>
+            <li><span>100000</span></li>
+            <li><span>Last Order</span></li>
+            <li><span>Last Point</span></li>
+            <li><span>Details</span></li>
+            <li><span>Pre orders</span></li>
+            <li>
+              <span>
+                <a href="#" onClick={profileClick} className="display-picture"><img src="https://i.pravatar.cc/85" width={30} alt="" /></a>
+                <div className={`${isProfilevisible ? 'show_profile' : 'hidden'} card`}>
+                  {/* hidden */}
+                  <ul className='profile_UL'>
+                    <li><a href="#">Profile</a></li>
+                    <li><a href="#">Account</a></li>
+                    <li><a href="#">Settings</a></li>
+                    <li><a href="#">Log Out</a></li>
+                  </ul>
+                </div>
+              </span>
+            </li>
+          </ul>
         </div>
       </div>
-      <CommonModal
-        show={showModal}
-        onHide={handleCloseModal}
-        title="Example Modal"
-        body="This is a common modal "
-      />
-    </div>
+    </>
   )
 }
 export default MrkHeader;
