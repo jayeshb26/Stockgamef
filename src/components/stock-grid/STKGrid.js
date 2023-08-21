@@ -19,7 +19,7 @@ const STKGrid = () => {
   const [showModal, setShowModal] = useState(false);
   const [addPrice, setAddStockPrice] = useState("");
   const [activeCellIndex, setActiveCellIndex] = useState(-1);
-  const [modifiedValues, setModifiedValues] = useState(new Array(TOTAL_CELLS).fill(0));
+  const [modifiedValues, setModifiedValues] = useState(array);
   const [myData, setMyData] = useState([]);
 
   useEffect(() => {
@@ -37,6 +37,7 @@ const STKGrid = () => {
         className: null,
       }))
     );
+    console.log('myData',myData)
   }, [modifiedValues]);
 
   const handleCellClick = (index) => {
@@ -103,6 +104,7 @@ const handleInputChange = useCallback((e, index) => {
     },
     [activeCellIndex, handleInputBlur]
   );
+
   const changeColumn = (e, index) => {
     for (let i = 0; i < 10; i++) {
       var currentIndex = index + 1 * i * 10;
@@ -139,7 +141,7 @@ const handleInputChange = useCallback((e, index) => {
           {Colarray.map((item, index) => {
             return (
               <input
-                type="text"
+                type="number"
                 placeholder={index}
                 key={index}
                 onChange={(e) => changeColumn(e, index)}
@@ -155,7 +157,7 @@ const handleInputChange = useCallback((e, index) => {
           {Rowarray.map((item, index) => {
             return (
               <input
-                type="text"
+                type="number"
                 placeholder={index}
                 onChange={(e) => changeRow(e, index)}
                 key={index}
@@ -178,8 +180,8 @@ const handleInputChange = useCallback((e, index) => {
                   <span>Reliance</span>
                   {activeCellIndex === index ? (
                     <input
-                      type="text"
-                      value={myData[index].value}
+                      type="number"
+                      value={myData[index].value.value}
                       onChange={(e) => handleInputChange(e, index)}
                       onBlur={() => handleInputBlur(index)}
                       autoFocus

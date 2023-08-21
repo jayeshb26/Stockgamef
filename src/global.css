@@ -185,3 +185,6 @@ ul{
   color: var(--white-color);
   font-family: var(--font-family);
 }
+.f_right{
+  float: right !important;
+}

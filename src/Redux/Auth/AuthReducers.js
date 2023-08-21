@@ -23,7 +23,8 @@ const AuthReducers = (state = initialState, action) => {
         error: action.payload,
       };
     case "LOGOUT":
-      return { ...state, loggedIn: false, error: null };
+      localStorage.clear();
+      return { ...state, loggedIn: false, error: null, token: null };
     default:
       return state;
   }

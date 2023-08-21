@@ -15,3 +15,12 @@ export const MRKRows = () => {
     { last_tr_pt: "Jane Smith", },
   ];
 };
+export const HistoryRows  = [
+    {userName:'User Name'},
+    { DrDate: "Dr Date", },
+    { DrTime: "Dr Time", },
+    { game: "Game Type", },
+    { startPoint: "Start Point", },
+    { winPosition: "Win Position", },
+    { bet: "Bet", },
+  ];

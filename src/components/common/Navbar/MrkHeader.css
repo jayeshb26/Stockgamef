@@ -93,6 +93,13 @@
 .profile_UL li a{
     color: var(--white-color);
     text-decoration: none;
+    width: 100%;
+    display: block;
+}
+.profile_UL li a span{
+    width: 100%;
+    display: block;
+    margin-bottom: 0px;
 }
 .profile_UL li:hover{
     background-color: var(--bg-semi-dark);
