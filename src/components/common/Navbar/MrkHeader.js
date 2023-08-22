@@ -59,7 +59,7 @@ const MrkHeader = () => {
               <span>Pre orders</span>
             </li>
             <li>
-              <span>
+              {/* <span>
                 <a href="#" onClick={profileClick} className="display-picture">
                   <img src="https://i.pravatar.cc/85" width={30} alt="" />
                 </a>
@@ -68,7 +68,6 @@ const MrkHeader = () => {
                     isProfilevisible ? "show_profile" : "hidden"
                   } card`}
                 >
-                  {/* hidden */}
                   <ul className="profile_UL">
                     <li>
                       <a
@@ -92,7 +91,26 @@ const MrkHeader = () => {
                     </li>
                   </ul>
                 </div>
-              </span>
+              </span> */}
+              <Dropdown>
+                <Dropdown.Toggle
+                  variant="success"
+                  id="dropdown-basic"
+                >
+                <img src="https://i.pravatar.cc/85" width={30} alt="" />
+                </Dropdown.Toggle>
+
+                <Dropdown.Menu >
+                  <Dropdown.Item href="javascript:void(0);"><Profile/></Dropdown.Item>
+                  <Dropdown.Item href={AppConstant.HISTORY}>
+                    {/* <Link to={AppConstant.HISTORY}>History</Link> */}
+                    History
+                  </Dropdown.Item>
+                  <Dropdown.Item href="javascript:void(0);" onClick={logout}>
+                    Logout
+                  </Dropdown.Item>
+                </Dropdown.Menu>
+              </Dropdown>
             </li>
           </ul>
         </div>

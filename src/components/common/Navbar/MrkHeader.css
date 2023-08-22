@@ -105,3 +105,34 @@
     background-color: var(--bg-semi-dark);
     cursor: pointer;
 }
+.dropdown-toggle {
+    background: transparent;
+    border: none;
+    padding-top: 0px;
+}
+
+.dropdown-toggle:hover {
+    background: transparent !important;
+}
+
+.dropdown-toggle .btn-check:checked+.btn,
+.btn.active,
+.btn.show,
+.btn:first-child:active,
+:not(.btn-check)+.btn:active {
+    background: transparent;
+    border: none;
+}
+.dropdown-menu{
+    background-color: var(--dark-light);
+}
+.dropdown-item{
+    color: var(--white-color) !important;
+}
+.dropdown-item:hover{
+    color: #000 !important;
+}
+.dropdown-item:active{
+    background-color: var(--white-color) !important;
+    color: #000 !important;
+}

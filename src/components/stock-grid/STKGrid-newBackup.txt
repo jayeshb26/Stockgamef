@@ -32,9 +32,13 @@ const STKGrid = () => {
 
   useEffect(() => {
     setMyData(
-      array
+      modifiedValues.map((value, index) => ({
+        value,
+        className: null,
+      }))
     );
-  }, [array]);
+    console.log('myData',myData)
+  }, [modifiedValues]);
 
   const handleCellClick = (index) => {
     setActiveCellIndex(index);
@@ -47,8 +51,7 @@ const STKGrid = () => {
   }, [activeCellIndex]);
 
   const updateModifiedValue = () => {
-    console.log('Mydata',myData)
-    const newModifiedValues = [...array];
+    const newModifiedValues = [...modifiedValues];
     newModifiedValues[activeCellIndex] = myData[activeCellIndex].value;
     setModifiedValues(newModifiedValues);
   };
@@ -60,16 +63,12 @@ const STKGrid = () => {
 //   }, [myData]);
 const handleInputChange = useCallback((e, index) => {
     const newMyData = [...myData];
-    const data = { ...newMyData[index], value: e.target.value };
-    newMyData[index] = { ...newMyData[index], value: Number(data.value) };
-    // newMyData[index] = Number(data.value)
+    newMyData[index] = { ...newMyData[index], value: e.target.value };
     setMyData(newMyData);
 
     const updatedArray = [...array];
-    const inputValue = e.target.value;
-    updatedArray[index].value = +inputValue;
+    updatedArray[index].value = e.target.value;
     setMyData(updatedArray); // Add this line to update the main array
-    console.log('MYARRAY',myData)
   }, [array, myData]);
 
   const handleKeyDown = useCallback(
@@ -175,7 +174,7 @@ const handleInputChange = useCallback((e, index) => {
                 key={index}
                 className={`stocks ${item.className}`}
                 onClick={() => handleCellClick(index)}
-                // style={{ color: getRandomColor(index) }}
+                style={{ color: getRandomColor(index) }}
               >
                 <a href="javascript:void(0);">
                   <span>Reliance</span>
