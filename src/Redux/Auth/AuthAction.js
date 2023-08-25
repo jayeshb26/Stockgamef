@@ -7,7 +7,6 @@ export const logIn = (formData) => async dispatch => {
     const password = formData.password;
     
     const response = await axios.post(`${AppConstant.API.URL}auth/login`, { userName, password});
-    console.log('RESPONSE',response)
     dispatch({ type: 'LOGIN_SUCCESS', payload: response.data });
   } catch (error) {
     dispatch({ type: 'LOGIN_FAILURE', payload: error.message });

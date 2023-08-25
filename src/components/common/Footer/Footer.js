@@ -1,7 +1,8 @@
 import React from 'react'
 import './Footer.css'
 
-const Footer = () => {
+const Footer = ({setReset}) => {
+
     return (
         <div className='footer_wrapper'>
             <div className="container-fluid">
@@ -9,10 +10,10 @@ const Footer = () => {
                     <div className="row">
                         <div className="left_footer col-md-4">
                             <button className='btn success-btn'>Print Records</button>
-                            <button className='btn danger-btn'>Reset</button>
+                            <button className='btn danger-btn' onClick={()=>setReset(true)}>Reset</button>
                         </div>
                         <div className="center_screen col-md-4">
-                            <div className="check_box">
+                            {/* <div className="check_box">
                                 <div class="form-check">
                                     <input class="form-check-input" type="checkbox" value="" id="defaultCheck1" />
                                     <label class="form-check-label" for="defaultCheck1">
@@ -25,7 +26,7 @@ const Footer = () => {
                                         Row
                                     </label>
                                 </div>
-                            </div>
+                            </div> */}
                         </div>
                         <div className="right_footer col-md-4">
                             <form>

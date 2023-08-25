@@ -1,6 +1,6 @@
 import React from 'react';
 import './CommonModal.css'
-import { Modal, Button } from 'react-bootstrap';
+import { Modal } from 'react-bootstrap';
 
 const CommonModal = ({ show, onHide, title, body,footer,children }) => {
   // return (

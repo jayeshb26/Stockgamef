@@ -8,69 +8,46 @@ const ARROW_DOWN = "ArrowDown";
 const ARROW_LEFT = "ArrowLeft";
 const ARROW_RIGHT = "ArrowRight";
 const TAB = "Tab";
-const Colarray = Array.from({ length: 10 });
-const Rowarray = Array.from({ length: 10 });
-const array = [];
-for (let index = 0; index < 100; index++) {
-  array.push({ value: index * 2, className: null });
-}
-const STKGrid = () => {
-  const [currentColor, setCurrentColor] = useState("white");
-  const [showModal, setShowModal] = useState(false);
-  const [addPrice, setAddStockPrice] = useState("");
+
+const defaultArray = Array.from({ length: TOTAL_CELLS }, (_, index) => ({
+  value: index * 2,
+  className: null,
+}));
+const defaultArray1 = Array.from({ length: TOTAL_CELLS }, (_, index) => ({
+  value: index * 2,
+  className: null,
+}));
+
+const STKGrid = ({ reset,setReset}) => {
   const [activeCellIndex, setActiveCellIndex] = useState(-1);
-  const [modifiedValues, setModifiedValues] = useState(array);
-  const [myData, setMyData] = useState([]);
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setCurrentColor(getRandomColor());
-    }, 1000);
-
-    return () => clearInterval(interval);
-  }, [addPrice]);
-
-  useEffect(() => {
-    setMyData(
-      array
-    );
-  }, [array]);
-
-  const handleCellClick = (index) => {
-    setActiveCellIndex(index);
-  };
+  const [modifiedValues, setModifiedValues] = useState([...defaultArray]);
+  useEffect(async () => {
+    if (reset) {
+      console.log('inner',reset)
+      // debugger
+      await setModifiedValues(defaultArray1);
+      await setActiveCellIndex(-1); // Reset active cell
+      setReset(false)
+    }
+  }, [reset]);
 
   const handleInputBlur = useCallback(() => {
     if (activeCellIndex !== -1) {
-      updateModifiedValue();
+      setActiveCellIndex(-1);
     }
   }, [activeCellIndex]);
 
-  const updateModifiedValue = () => {
-    console.log('Mydata',myData)
-    const newModifiedValues = [...array];
-    newModifiedValues[activeCellIndex] = myData[activeCellIndex].value;
-    setModifiedValues(newModifiedValues);
-  };
+  const handleInputChange = useCallback(
+    (e, index) => {
+      const updatedValue = e.target.value;
+        const updatedModifiedValues = modifiedValues.map((item, i) =>
+        i === index ? { ...item, value: updatedValue } : item
+      );
 
-//   const handleInputChange = useCallback((e, index) => {
-//     const newMyData = [...myData];
-//     newMyData[index].value = e.target.value;
-//     setMyData(newMyData);
-//   }, [myData]);
-const handleInputChange = useCallback((e, index) => {
-    const newMyData = [...myData];
-    const data = { ...newMyData[index], value: e.target.value };
-    newMyData[index] = { ...newMyData[index], value: Number(data.value) };
-    // newMyData[index] = Number(data.value)
-    setMyData(newMyData);
-
-    const updatedArray = [...array];
-    const inputValue = e.target.value;
-    updatedArray[index].value = +inputValue;
-    setMyData(updatedArray); // Add this line to update the main array
-    console.log('MYARRAY',myData)
-  }, [array, myData]);
+      setModifiedValues(updatedModifiedValues);
+    },
+    [modifiedValues]
+  );
 
   const handleKeyDown = useCallback(
     (e) => {
@@ -106,21 +83,6 @@ const handleInputChange = useCallback((e, index) => {
     [activeCellIndex, handleInputBlur]
   );
 
-  const changeColumn = (e, index) => {
-    for (let i = 0; i < 10; i++) {
-      var currentIndex = index + 1 * i * 10;
-      array[currentIndex].value = e.target.value;
-      array[currentIndex].className = "colmun_selected";
-    }
-  };
-  const changeRow = (e, index) => {
-    for (let i = 0; i < 10; i++) {
-      var currentIndex = i + index * 10;
-      array[currentIndex].value = e.target.value;
-      array[currentIndex].className = "row_selected";
-    }
-  };
-
   useEffect(() => {
     window.addEventListener("keydown", handleKeyDown);
 
@@ -129,83 +91,107 @@ const handleInputChange = useCallback((e, index) => {
     };
   }, [handleKeyDown]);
 
-  const getRandomColor = useCallback(() => {
-    const colors = ["#E60000", "#32cd32", "#0069cf", "#fd5602"];
-    return colors[Math.floor(Math.random() * colors.length)];
-  }, []);
+  const changeColumn = (e, index) => {
+    const updatedValue = e.target.value;
+    const updatedArray = [...modifiedValues];
+    if (updatedValue !== "") {
+      for (let i = 0; i < GRID_SIZE; i++) {
+        const currentIndex = index + i * GRID_SIZE;
+        updatedArray[currentIndex].value = updatedValue;
+        updatedArray[currentIndex].className = "colmun_selected";
+      }
+      setModifiedValues(updatedArray);
+    }
+    else{
+      for (let i = 0; i < GRID_SIZE; i++) {
+        const currentIndex = index + i * GRID_SIZE;
+        updatedArray[currentIndex].value = defaultArray1[i].value;
+        updatedArray[currentIndex].className = null;
+      }
+      setModifiedValues(updatedArray);
+    }
+  };
+
+  const changeRow = (e, index) => {
+    const updatedValue = e.target.value;
+    const updatedArray = [...modifiedValues];
+    if (updatedValue !== "") {
+      for (let i = 0; i < GRID_SIZE; i++) {
+        const currentIndex = i + index * GRID_SIZE;
+        updatedArray[currentIndex].value = updatedValue;
+        updatedArray[currentIndex].className = "row_selected";
+      }
+      setModifiedValues(updatedArray);
+    }else{
+      for (let i = 0; i < GRID_SIZE; i++) {
+        const currentIndex = i + index * GRID_SIZE;
+        updatedArray[currentIndex].value = defaultArray1[i].value;
+        updatedArray[currentIndex].className = null;
+      }
+      setModifiedValues(updatedArray);
+    }
+  };
+
+  const handleCellClick = (index) => {
+    setActiveCellIndex(index);
+  };
 
   return (
     <>
       <div className="d-flex">
         <div className="top_black_block"></div>
         <div className="TopSTKGrid">
-          {Colarray.map((item, index) => {
-            return (
-              <input
-                type="number"
-                placeholder={index}
-                key={index}
-                onChange={(e) => changeColumn(e, index)}
-                name=""
-                id=""
-              />
-            );
-          })}
+          {Array.from({ length: GRID_SIZE }).map((_, index) => (
+            <input
+              type="number"
+              placeholder={index}
+              key={index}
+              onChange={(e) => changeColumn(e, index)}
+              name=""
+              id=""
+            />
+          ))}
         </div>
       </div>
       <div className="d-flex">
         <div className="LeftSTKGrid">
-          {Rowarray.map((item, index) => {
-            return (
-              <input
-                type="number"
-                placeholder={index}
-                onChange={(e) => changeRow(e, index)}
-                key={index}
-                name=""
-                id=""
-              />
-            );
-          })}
+          {Array.from({ length: GRID_SIZE }).map((_, index) => (
+            <input
+              type="number"
+              placeholder={index}
+              onChange={(e) => changeRow(e, index)}
+              key={index}
+              name=""
+              id=""
+            />
+          ))}
         </div>
         <div className="grid_wrapper">
           <ul>
-            {array.map((item, index) => (
+            {modifiedValues.map((item, index) => (
               <li
                 key={index}
                 className={`stocks ${item.className}`}
                 onClick={() => handleCellClick(index)}
-                // style={{ color: getRandomColor(index) }}
               >
                 <a href="javascript:void(0);">
                   <span>Reliance</span>
                   {activeCellIndex === index ? (
                     <input
                       type="number"
-                      value={myData[index].value.value}
+                      value={modifiedValues[index].value}
                       onChange={(e) => handleInputChange(e, index)}
-                      onBlur={() => handleInputBlur(index)}
+                      onBlur={handleInputBlur}
                       autoFocus
                     />
                   ) : (
                     <p>{item.value}</p>
                   )}
-                  {/* <p>{item.value}</p> */}
-                  {/* <input type="text" value={item.value} /> */}
                 </a>
               </li>
             ))}
           </ul>
         </div>
-        {/* <CommonModal
-          show={showModal}
-          onHide={handleCloseModal}
-          title="Bid Price"
-          body={
-            <Inputs addPrice={addPrice} setAddStockprice={setAddStockprice} />
-          }
-          footer={<Footer close={handleCloseModal} />}
-        /> */}
       </div>
     </>
   );

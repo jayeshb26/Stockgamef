@@ -17,7 +17,6 @@ const History = () => {
       .get(url)
       .then((response) => {
         if (response.data) {
-          console.log("response.data", response.data.data);
           setHistory(response.data.data);
         }
       })

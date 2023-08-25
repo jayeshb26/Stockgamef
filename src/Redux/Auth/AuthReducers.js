@@ -3,16 +3,14 @@ const initialState = {
   error: null,
   token: null,
 };
-
 const AuthReducers = (state = initialState, action) => {
-  console.log("action", action.payload);
   switch (action.type) {
     case "LOGIN_SUCCESS":
       // Store token in local storage
       localStorage.setItem("authToken", action.payload.token);
       return {
         ...state,
-        loggedIn: action.payload.success,
+        loggedIn: true,
         error: null,
         token: action.payload.token,
       };

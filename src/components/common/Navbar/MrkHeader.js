@@ -1,23 +1,32 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./MrkHeader.css";
-import { Dropdown, DropdownButton } from "react-bootstrap";
+import { Dropdown } from "react-bootstrap";
 import Profile from "../../user/Profile";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { AppConstant } from "../../../AppConstant";
 import { useDispatch } from "react-redux";
 import { logOut } from "../../../Redux/Auth/AuthAction";
+import { useSocket } from "../../Context/SocketContext";
+import Avatar from 'react-avatar';
 
 const MrkHeader = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate()
-  const [isProfilevisible, setProfileVisible] = useState(false);
-  const profileClick = () => {
-    setProfileVisible((prevState) => !prevState);
-  };
-  const [showModal, setShowModal] = useState(false);
-  const showModalComp = () => {
-    setShowModal(true);
-  };
+  const socket = useSocket();
+  // const [isProfilevisible, setProfileVisible] = useState(false);
+  const [socketData,setSocketData] = useState(null)
+  // const profileClick = () => {
+  //   setProfileVisible((prevState) => !prevState);
+  // };
+  useEffect(()=>{
+    if(socket){
+      setSocketData(socket.data)
+    }
+  },[socket])
+  // const [showModal, setShowModal] = useState(false);
+  // const showModalComp = () => {
+  //   setShowModal(true);
+  // };
   const logout = () =>{
     dispatch(logOut())
     navigate('/login')
@@ -44,7 +53,7 @@ const MrkHeader = () => {
               <span>4:00</span>
             </li>
             <li>
-              <span>100000</span>
+              <span>{socketData?.creditPoint}</span>
             </li>
             <li>
               <span>Last Order</span>
@@ -97,11 +106,11 @@ const MrkHeader = () => {
                   variant="success"
                   id="dropdown-basic"
                 >
-                <img src="https://i.pravatar.cc/85" width={30} alt="" />
+                  <Avatar name="User" size="30" round={true}  />
                 </Dropdown.Toggle>
 
                 <Dropdown.Menu >
-                  <Dropdown.Item href="javascript:void(0);"><Profile/></Dropdown.Item>
+                  <Dropdown.Item className="profileItem" href="javascript:void(0);"><Profile/></Dropdown.Item>
                   <Dropdown.Item href={AppConstant.HISTORY}>
                     {/* <Link to={AppConstant.HISTORY}>History</Link> */}
                     History

@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import CommonModal from "../common/common-modal/CommonModal";
 import ProfileDetails from "./profileDeatils/ProfileDetails";
-import { Button, ButtonGroup } from "react-bootstrap";
 
 const Profile = ({ showModal, setShowModal }) => {
   // console.log('showModal',showModal)
@@ -43,7 +42,7 @@ const Profile = ({ showModal, setShowModal }) => {
           </button>
         </div>
       </CommonModal>
-      <span onClick={openModal}>Profile</span>
+      <div onClick={openModal}>Profile</div>
     </>
   );
 };

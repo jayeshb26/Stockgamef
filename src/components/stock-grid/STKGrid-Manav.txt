@@ -1,5 +1,6 @@
 import React, { useEffect, useState, useCallback } from "react";
 import "./STKGrid.css";
+import { useSocket } from "../Context/SocketContext";
 
 const GRID_SIZE = 10;
 const TOTAL_CELLS = GRID_SIZE * GRID_SIZE;
@@ -14,31 +15,33 @@ const array = [];
 for (let index = 0; index < 100; index++) {
   array.push({ value: index * 2, className: null });
 }
-const STKGrid = () => {
+const STKGrid = ({reset}) => {
   const [currentColor, setCurrentColor] = useState("white");
   const [showModal, setShowModal] = useState(false);
   const [addPrice, setAddStockPrice] = useState("");
   const [activeCellIndex, setActiveCellIndex] = useState(-1);
   const [modifiedValues, setModifiedValues] = useState(array);
   const [myData, setMyData] = useState([]);
+  const [triggerRerender, setTriggerRerender] = useState(false);
 
   useEffect(() => {
-    const interval = setInterval(() => {
-      setCurrentColor(getRandomColor());
-    }, 1000);
+    // const interval = setInterval(() => {
+    //   setCurrentColor(getRandomColor());
+    // }, 1000);
 
-    return () => clearInterval(interval);
+    // return () => clearInterval(interval);
   }, [addPrice]);
-
+  useEffect(()=>{
+    const defaultArray = array
+    if(reset){
+      setModifiedValues(defaultArray)
+    }
+  },[])
   useEffect(() => {
     setMyData(
-      modifiedValues.map((value, index) => ({
-        value,
-        className: null,
-      }))
+      array
     );
-    console.log('myData',myData)
-  }, [modifiedValues]);
+  }, [array]);
 
   const handleCellClick = (index) => {
     setActiveCellIndex(index);
@@ -51,7 +54,8 @@ const STKGrid = () => {
   }, [activeCellIndex]);
 
   const updateModifiedValue = () => {
-    const newModifiedValues = [...modifiedValues];
+    console.log('Mydata',myData)
+    const newModifiedValues = [...array];
     newModifiedValues[activeCellIndex] = myData[activeCellIndex].value;
     setModifiedValues(newModifiedValues);
   };
@@ -63,12 +67,16 @@ const STKGrid = () => {
 //   }, [myData]);
 const handleInputChange = useCallback((e, index) => {
     const newMyData = [...myData];
-    newMyData[index] = { ...newMyData[index], value: e.target.value };
+    const data = { ...newMyData[index], value: e.target.value };
+    newMyData[index] = { ...newMyData[index], value: Number(data.value) };
+    // newMyData[index] = Number(data.value)
     setMyData(newMyData);
 
     const updatedArray = [...array];
-    updatedArray[index].value = e.target.value;
+    const inputValue = e.target.value;
+    updatedArray[index].value = +inputValue;
     setMyData(updatedArray); // Add this line to update the main array
+    console.log('MYARRAY',myData)
   }, [array, myData]);
 
   const handleKeyDown = useCallback(
@@ -111,6 +119,9 @@ const handleInputChange = useCallback((e, index) => {
       array[currentIndex].value = e.target.value;
       array[currentIndex].className = "colmun_selected";
     }
+    console.log('changeColumn',array); 
+    setModifiedValues(array);
+    setTriggerRerender(!triggerRerender); 
   };
   const changeRow = (e, index) => {
     for (let i = 0; i < 10; i++) {
@@ -118,6 +129,9 @@ const handleInputChange = useCallback((e, index) => {
       array[currentIndex].value = e.target.value;
       array[currentIndex].className = "row_selected";
     }
+    console.log('changeRow',array); 
+    setModifiedValues(array);
+    setTriggerRerender(!triggerRerender); 
   };
 
   useEffect(() => {
@@ -174,14 +188,14 @@ const handleInputChange = useCallback((e, index) => {
                 key={index}
                 className={`stocks ${item.className}`}
                 onClick={() => handleCellClick(index)}
-                style={{ color: getRandomColor(index) }}
+                // style={{ color: getRandomColor(index) }}
               >
                 <a href="javascript:void(0);">
                   <span>Reliance</span>
                   {activeCellIndex === index ? (
                     <input
                       type="number"
-                      value={myData[index].value.value}
+                      value={myData[index].value}
                       onChange={(e) => handleInputChange(e, index)}
                       onBlur={() => handleInputBlur(index)}
                       autoFocus

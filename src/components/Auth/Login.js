@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./Login.css";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
@@ -12,7 +12,9 @@ const Login = () => {
     userName: "",
     password: "",
   });
-
+  useEffect(()=>{
+    
+  },[loginState])
   const [errors, setErrors] = useState({
     userName: "",
     password: "",
@@ -52,11 +54,12 @@ const Login = () => {
     e.preventDefault();
 
     if (validateForm()) {
-      await dispatch(logIn(formData));
+      dispatch(logIn(formData));
+     setTimeout(()=>{
       if (loginState.loggedIn) {
         navigate("/market");
       }
-      console.log("Form Data:", formData);
+     },500)
     } else {
       console.log("Form has errors");
     }
@@ -95,7 +98,7 @@ const Login = () => {
             {errors.password && <p>{errors.password}</p>}
           </div>
           <div className="input_wrapper">
-            <button className="btn danger-btn" type="submit">
+            <button className="btn danger-btn" onClick={handleSubmit} type="submit">
               Login
             </button>
           </div>
