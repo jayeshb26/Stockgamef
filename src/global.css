@@ -48,7 +48,7 @@ ul{
   color: var(--white-color) !important;
   font-weight: 500;
   font-family: var(--font-family);
-  border: var(--blue-color) !important;
+  /* border: var(--blue-color) !important; */
 }
 .blue-btn:hover{
     background-color: var(--blue-hover);
@@ -61,7 +61,7 @@ ul{
   color: var(--white-color) !important;
   font-weight: 500;
   font-family: var(--font-family);
-  border: var(--blue-color) !important;
+  /* border: var(--blue-color) !important; */
 }
 .success-btn {
   background-color: var(--green-color) ;

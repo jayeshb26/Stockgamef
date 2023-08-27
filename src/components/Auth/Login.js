@@ -3,11 +3,13 @@ import "./Login.css";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { logIn } from "../../Redux/Auth/AuthAction";
+// import { useToast } from "../Context/ToastProvider";
 
 const Login = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const loginState = useSelector((state) => state.auth);
+  // const {showToast} = useToast()
   const [formData, setFormData] = useState({
     userName: "",
     password: "",
@@ -15,6 +17,12 @@ const Login = () => {
   useEffect(()=>{
     
   },[loginState])
+  useEffect(()=>{
+    const token = localStorage.getItem('authToken');
+    if(token){
+      navigate('/market')
+    }
+  },[])
   const [errors, setErrors] = useState({
     userName: "",
     password: "",
@@ -55,11 +63,13 @@ const Login = () => {
 
     if (validateForm()) {
       dispatch(logIn(formData));
+      console.log('loginState.loggedIn',loginState.loggedIn)
      setTimeout(()=>{
       if (loginState.loggedIn) {
+        // showToast('You have successfully logged in','success')
         navigate("/market");
       }
-     },500)
+     },1000)
     } else {
       console.log("Form has errors");
     }

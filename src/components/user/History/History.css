@@ -40,3 +40,9 @@
     top: 0px;
     position: absolute;
 }
+.postion_sticky{
+    position: sticky;
+    top: 40px;
+    z-index: 10;
+    background: black;
+}

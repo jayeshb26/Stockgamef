@@ -1,5 +1,8 @@
 import React, { useEffect, useState, useCallback } from "react";
 import "./STKGrid.css";
+import { useSocket } from "../Context/SocketContext";
+import Footer from "../common/Footer/Footer";
+// import ReactLoading from "react-loading";
 
 const GRID_SIZE = 10;
 const TOTAL_CELLS = GRID_SIZE * GRID_SIZE;
@@ -8,29 +11,61 @@ const ARROW_DOWN = "ArrowDown";
 const ARROW_LEFT = "ArrowLeft";
 const ARROW_RIGHT = "ArrowRight";
 const TAB = "Tab";
+const NUMBER_REGX = /^\d{0,8}$/;
 
-const defaultArray = Array.from({ length: TOTAL_CELLS }, (_, index) => ({
-  value: index * 2,
-  className: null,
-}));
-const defaultArray1 = Array.from({ length: TOTAL_CELLS }, (_, index) => ({
-  value: index * 2,
-  className: null,
-}));
-
-const STKGrid = ({ reset,setReset}) => {
+const STKGrid = () => {
+  const { emitEvent, mainData } = useSocket();
   const [activeCellIndex, setActiveCellIndex] = useState(-1);
-  const [modifiedValues, setModifiedValues] = useState([...defaultArray]);
-  useEffect(async () => {
+  const [gridArray, setGridArray] = useState([]);
+  // const [modifiedValues, setModifiedValues] = useState([...gridArray]);
+  const [modifiedValues, setModifiedValues] = useState([]);
+  const [reset, setReset] = useState(false);
+  const [inputValue, setInputValue] = useState(null);
+  var BID_ARRAY = [];
+
+  // console.log('mainData',mainData)
+  const placeBid = () => {
+    var updtedBid;
+    var bidObj = {};
+    modifiedValues.filter((bid) => {
+      if (bid.price) {
+        const total = +bid.price*10
+        bidObj = {
+          gameName:"stockskill",
+          playerId:"622596708f8ea7140b372572",
+          position_number:bid.number,
+          position_price:bid.price,
+          betPoint:total
+        }
+        BID_ARRAY = [...BID_ARRAY, bid];
+        updtedBid = JSON.stringify(BID_ARRAY);
+        console.log("works", bidObj);
+      }
+    });
+    emitEvent("placeBet", {
+      bidObj,
+    });
+  };
+
+  useEffect(() => {
+    if (mainData?.data?.stock) {
+      setGridArray(mainData?.data?.stock);
+      setModifiedValues(mainData?.data.stock.map((item) => ({ ...item })));
+    }
+    // console.log('gridArray',gridArray)
+  }, [mainData]);
+  useEffect(() => {
     if (reset) {
-      console.log('inner',reset)
-      // debugger
-      await setModifiedValues(defaultArray1);
-      await setActiveCellIndex(-1); // Reset active cell
-      setReset(false)
+      setModifiedValues(gridArray.map((item) => ({ ...item }))); // Reset to defaultArray
+      setActiveCellIndex(-1); // Reset active cell
+
+      // Delay resetting gridArray to the next render cycle
+      setTimeout(() => {
+        setGridArray(gridArray.map((item) => ({ ...item }))); // Reset gridArray
+        setReset(false);
+      }, 0);
     }
   }, [reset]);
-
   const handleInputBlur = useCallback(() => {
     if (activeCellIndex !== -1) {
       setActiveCellIndex(-1);
@@ -40,10 +75,12 @@ const STKGrid = ({ reset,setReset}) => {
   const handleInputChange = useCallback(
     (e, index) => {
       const updatedValue = e.target.value;
-        const updatedModifiedValues = modifiedValues.map((item, i) =>
-        i === index ? { ...item, value: updatedValue } : item
+      const updatedModifiedValues = modifiedValues.map((item, i) =>
+        i === index
+          ? { ...item, price: updatedValue, className: "row_selected" }
+          : item
       );
-
+      console.log("updatedModifiedValues", updatedModifiedValues);
       setModifiedValues(updatedModifiedValues);
     },
     [modifiedValues]
@@ -97,15 +134,14 @@ const STKGrid = ({ reset,setReset}) => {
     if (updatedValue !== "") {
       for (let i = 0; i < GRID_SIZE; i++) {
         const currentIndex = index + i * GRID_SIZE;
-        updatedArray[currentIndex].value = updatedValue;
+        updatedArray[currentIndex].price = updatedValue;
         updatedArray[currentIndex].className = "colmun_selected";
       }
       setModifiedValues(updatedArray);
-    }
-    else{
+    } else {
       for (let i = 0; i < GRID_SIZE; i++) {
         const currentIndex = index + i * GRID_SIZE;
-        updatedArray[currentIndex].value = defaultArray1[i].value;
+        updatedArray[currentIndex].price = null;
         updatedArray[currentIndex].className = null;
       }
       setModifiedValues(updatedArray);
@@ -114,18 +150,19 @@ const STKGrid = ({ reset,setReset}) => {
 
   const changeRow = (e, index) => {
     const updatedValue = e.target.value;
+    setInputValue(updatedValue);
     const updatedArray = [...modifiedValues];
     if (updatedValue !== "") {
       for (let i = 0; i < GRID_SIZE; i++) {
         const currentIndex = i + index * GRID_SIZE;
-        updatedArray[currentIndex].value = updatedValue;
+        updatedArray[currentIndex].price = updatedValue;
         updatedArray[currentIndex].className = "row_selected";
       }
       setModifiedValues(updatedArray);
-    }else{
+    } else {
       for (let i = 0; i < GRID_SIZE; i++) {
         const currentIndex = i + index * GRID_SIZE;
-        updatedArray[currentIndex].value = defaultArray1[i].value;
+        updatedArray[currentIndex].price = null;
         updatedArray[currentIndex].className = null;
       }
       setModifiedValues(updatedArray);
@@ -134,6 +171,12 @@ const STKGrid = ({ reset,setReset}) => {
 
   const handleCellClick = (index) => {
     setActiveCellIndex(index);
+  };
+  const gridKeydown = (e) => {
+    console.log("inputValue <= 0 ", inputValue < 0);
+    // if ((inputValue?.length >= 8 || inputValue.startsWith("-")) && e.key !== "Backspace") {
+    //   e.preventDefault();
+    // }
   };
 
   return (
@@ -160,6 +203,7 @@ const STKGrid = ({ reset,setReset}) => {
               type="number"
               placeholder={index}
               onChange={(e) => changeRow(e, index)}
+              onKeyDown={gridKeydown}
               key={index}
               name=""
               id=""
@@ -169,32 +213,56 @@ const STKGrid = ({ reset,setReset}) => {
         <div className="grid_wrapper">
           <ul>
             {modifiedValues.map((item, index) => (
-              <li
-                key={index}
-                className={`stocks ${item.className}`}
-                onClick={() => handleCellClick(index)}
-              >
-                <a href="javascript:void(0);">
-                  <span>Reliance</span>
-                  {activeCellIndex === index ? (
-                    <input
-                      type="number"
-                      value={modifiedValues[index].value}
-                      onChange={(e) => handleInputChange(e, index)}
-                      onBlur={handleInputBlur}
-                      autoFocus
-                    />
-                  ) : (
-                    <p>{item.value}</p>
-                  )}
-                </a>
-              </li>
-            ))}
-          </ul>
+                <li
+                  key={index}
+                  className={`stocks ${item.className}`}
+                  onClick={() => handleCellClick(index)}
+                >
+                  <a href="javascript:void(0);">
+                    <span>{item.name}</span>
+                    {activeCellIndex === index ? (
+                      <input
+                        type="number"
+                        // value={modifiedValues[index].number}
+                        onChange={(e) => handleInputChange(e, index)}
+                        onBlur={handleInputBlur}
+                        autoFocus
+                      />
+                    ) : (
+                      <p> {item.price ? item.price : item.number}</p>
+                      // <p>{item.number}</p>
+                    )}
+                  </a>
+                </li>
+              ))}
+              </ul>
+            
         </div>
       </div>
+      <Footer placeBid={placeBid} setReset={setReset} />
     </>
   );
 };
 
 export default STKGrid;
+// ) : (
+            //   <div
+            //     className=""
+            //     style={{
+            //       width: "100%",
+            //       display: "flex",
+            //       height: "100vh",
+            //       justifyContent: "center",
+            //       alignItems:'center'
+            //     }}
+            //   >
+            //     <ReactLoading
+            //       className="page-loader"
+            //       type="spin"
+            //       color="#fff"
+            //       height={50}
+            //       width={50}
+            //     />
+            //   </div>
+            // )}
+          // </ul>

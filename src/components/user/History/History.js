@@ -5,12 +5,20 @@ import { AppConstant } from "../../../AppConstant";
 import { Table } from "react-bootstrap";
 import { HistoryRows } from "../../../Utilities";
 import "./History.css";
+import { useSocket } from "../../Context/SocketContext";
 const History = () => {
+  const socket = useSocket();
+  const mainData = socket ? socket.mainData : null;
   const [hisory, setHistory] = useState();
   useEffect(() => {
-    getHistory();
-    console.log("HistoryRows", HistoryRows);
-  }, []);
+    if(mainData){
+      getHistory();
+      console.log("HistoryRows", HistoryRows);
+    }
+  }, [mainData]);
+  useEffect(()=>{
+    getHistory()
+  },[])
   const getHistory = async () => {
     const url = AppConstant.END_POINTS.BET_HISTORY;
     await api
@@ -27,6 +35,7 @@ const History = () => {
   return (
     <div>
       <div className="haeder_wrap">
+        {/* {mainData ? <MrkHeader />: <div>Loading...</div>} */}
         <MrkHeader />
       </div>
       <div className="history_wrapper">
@@ -40,7 +49,7 @@ const History = () => {
                   );
                 })} */}
               <Table responsive="sm">
-                <thead>
+                <thead className="postion_sticky">
                   <tr>
                     <th key={1}>Sr No</th>
                     <th key={1}>User Name</th>
