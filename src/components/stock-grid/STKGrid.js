@@ -2,6 +2,7 @@ import React, { useEffect, useState, useCallback } from "react";
 import "./STKGrid.css";
 import { useSocket } from "../Context/SocketContext";
 import Footer from "../common/Footer/Footer";
+import { toast } from "react-toastify";
 // import ReactLoading from "react-loading";
 
 const GRID_SIZE = 10;
@@ -27,24 +28,29 @@ const STKGrid = () => {
   const placeBid = () => {
     var updtedBid;
     var bidObj = {};
+    var total
     modifiedValues.filter((bid) => {
       if (bid.price) {
-        const total = +bid.price*10
-        bidObj = {
-          gameName:"stockskill",
-          playerId:"622596708f8ea7140b372572",
-          position_number:bid.number,
-          position_price:bid.price,
-          betPoint:total
-        }
+        total = +bid.price*10
         BID_ARRAY = [...BID_ARRAY, bid];
-        updtedBid = JSON.stringify(BID_ARRAY);
-        console.log("works", bidObj);
       }
     });
+    // bidObj = {
+    //   gameName:"stockskill",
+    //   playerId:"622596708f8ea7140b372572",
+    //   position:BID_ARRAY,
+    //   betPoint:total
+    // }
+    // console.log("works", bidObj);
     emitEvent("placeBet", {
-      bidObj,
+      gameName:"stockskill",
+      playerId:"622596708f8ea7140b372572",
+      position:BID_ARRAY,
+      betPoint:total
     });
+    // if(bid){
+    //   toast.info(bid.data.result)
+    // }
   };
 
   useEffect(() => {

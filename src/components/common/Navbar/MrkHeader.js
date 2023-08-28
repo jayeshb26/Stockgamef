@@ -14,6 +14,7 @@ const MrkHeader = () => {
   const navigate = useNavigate();
   const socketValue = useSocket();
   const [socketData, setSocketData] = useState(null);
+  const [defaultData,setDefaultData] = useState(socketData);
 
   useEffect(() => {
     if (socketValue) {
@@ -22,7 +23,12 @@ const MrkHeader = () => {
       setSocketData(null);
     }
   }, [socketValue]);
-
+  useState(()=>{
+   if(socketData){
+    setDefaultData(socketData)
+   }
+   console.log('socketData',socketData)
+  },[socketData])
   const logout = () => {
     dispatch(logOut());
     navigate("/login");
