@@ -14,13 +14,13 @@ export const SocketProvider = ({ children }) => {
   const [socket, setSocket] = useState(null);
   const [mainData, setMainData] = useState(null);
   const [placeBid, setPlaceBid] = useState(null);
+  const [startGame, setStartGame] = useState();
 
   var newSocket;
   newSocket= io.connect(AppConstant.WEBSOCKET_URL);
   useEffect(() => {
     const token = localStorage.getItem("authToken");
     newSocket.on("connect", () => {
-      console.info(`Connected [id=${newSocket.id}]`);
       newSocket.emit("join", {
         token: `Bearer ${token}`,
         gameName: "stockskill",
@@ -30,7 +30,11 @@ export const SocketProvider = ({ children }) => {
       console.log("Response from server:", data);
       if(data.en == 'join'){
         setMainData(data);
-      }else{
+      }
+      else if(data.en == "game start"){
+        setStartGame(data.status)
+      }
+      else{
         setMainData(null)
       }
       setSocket(data)
@@ -43,19 +47,17 @@ export const SocketProvider = ({ children }) => {
     // };
     
     return () => {
-      console.info(`Disconnecting [id=${newSocket.id}]`);
       newSocket.disconnect();
     };
   }, []);
   const emitEvent = (eventName, eventData) => {
-    console.log('newSocket',newSocket)
     if (newSocket) {
       newSocket.emit(eventName, eventData);
     }
   };
   newSocket.on('res',(data)=>{
-    console.log('afterPlaceBid',data)
     if(data && data.en == "placeBet"){
+      console.log('afterPlaceBid',data)
       if(data.data.result == "Place Bet Success"){
         toast.success("Place Bet Success")
       }else{
@@ -69,6 +71,7 @@ export const SocketProvider = ({ children }) => {
     mainData,
     placeBid,
     emitEvent, // Make sure to include the function in the context value
+    startGame
   };
   return (
     <SocketContext.Provider value={contextValue}>{children}</SocketContext.Provider>

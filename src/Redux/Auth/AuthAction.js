@@ -8,7 +8,6 @@ export const logIn = (formData) => async dispatch => {
     const password = formData.password;
     
     const response = await axios.post(`${AppConstant.API.URL}auth/login`, { userName, password});
-    console.log('response',response)
     if(response){
       toast.success('Successfully Logged in');
       dispatch({ type: 'LOGIN_SUCCESS', payload: response.data });

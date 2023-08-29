@@ -1,28 +1,22 @@
-import React, { useEffect, useState } from "react";
-import "./Login.css";
+import React from "react";
+import "./SimpleLogin.css";
+import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
+import { useState } from "react";
 import { logIn } from "../../Redux/Auth/AuthAction";
-// import { useToast } from "../Context/ToastProvider";
+import { toast } from "react-toastify";
 
 const Login = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const loginState = useSelector((state) => state.auth);
-  // const {showToast} = useToast()
   const [formData, setFormData] = useState({
     userName: "",
     password: "",
   });
-  useEffect(()=>{
-    
-  },[loginState])
-  useEffect(()=>{
-    const token = localStorage.getItem('authToken');
-    if(token){
-      navigate('/market')
-    }
-  },[])
+  useEffect(() => {}, [loginState]);
+
   const [errors, setErrors] = useState({
     userName: "",
     password: "",
@@ -49,6 +43,11 @@ const Login = () => {
     setErrors(newErrors);
     return valid;
   };
+  const handleLogin = async() =>{
+    if (loginState.loggedIn) {
+      navigate("/market");
+    }
+  }
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -60,62 +59,108 @@ const Login = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
     if (validateForm()) {
       dispatch(logIn(formData));
-      console.log('loginState.loggedIn',loginState.loggedIn)
-     setTimeout(()=>{
-      if (loginState.loggedIn) {
-        // showToast('You have successfully logged in','success')
-        navigate("/market");
-      }
-     },1000)
     } else {
       console.log("Form has errors");
     }
   };
 
+  useEffect(() => {
+    if (loginState.error) {
+      toast.error(loginState.error);
+    }
+  }, [loginState.error]);
+
+  useEffect(() => {
+    handleLogin();
+  }, [loginState.loggedIn, navigate]);
+
+  const addFocusClass = (event) => {
+    const parent = event.target.parentNode.parentNode;
+    parent.classList.add("focus");
+  };
+
+  const removeFocusClass = (event) => {
+    const parent = event.target.parentNode.parentNode;
+    if (event.target.value === "") {
+      parent.classList.remove("focus");
+    }
+  };
+
+  useEffect(() => {
+    const inputs = document.querySelectorAll(".input");
+
+    inputs.forEach((input) => {
+      input.addEventListener("focus", addFocusClass);
+      input.addEventListener("blur", removeFocusClass);
+
+      return () => {
+        input.removeEventListener("focus", addFocusClass);
+        input.removeEventListener("blur", removeFocusClass);
+      };
+    });
+  }, []);
   return (
-    <div className="login_form">
-      <div class="conter">
-        <div className="login_logo">
-          <img src="/images/matka.png" height={150} alt="" />
+    <>
+      <div className="container">
+        <div className="row">
+            <div className="login_screen_wrapper">
+            <div className="img">
+          <img src="/images/mobile-login-animate.svg" />
         </div>
-        <h1>Stock Skill</h1>
-        <form onSubmit={handleSubmit}>
-          <div className="input_wrapper">
-            <label htmlFor="Login ID">Login ID: </label>
-            <input
-              type="text"
-              autoComplete="off"
-              value={formData.userName}
-              name="userName"
-              onChange={handleInputChange}
-              required
-            />
-            {errors.userID && <p>{errors.userID}</p>}
-          </div>
-          <div className="input_wrapper">
-            <label htmlFor="Login ID">Password: </label>
-            <input
-              type="password"
-              autoComplete="off"
-              value={formData.password}
-              name="password"
-              onChange={handleInputChange}
-              required
-            />
-            {errors.password && <p>{errors.password}</p>}
-          </div>
-          <div className="input_wrapper">
-            <button className="btn danger-btn" onClick={handleSubmit} type="submit">
+        <div className="login-content">
+          <form onSubmit={handleSubmit}>
+            <h2 className="title">Welcome to Stock-skill</h2>
+            <div className="input-div one">
+              <div className="i">
+                <i className="fas fa-user"></i>
+              </div>
+              <div className="div">
+                <h5>Username</h5>
+                <input
+                  type="text"
+                  autoComplete="off"
+                  value={formData.userName}
+                  name="userName"
+                  onChange={handleInputChange}
+                  className="input"
+                  //   required
+                />
+              </div>
+            </div>
+            {errors.userName && <p className="error_text">{errors.userName}</p>}
+            <div className="input-div pass">
+              <div className="i">
+                <i className="fas fa-lock"></i>
+              </div>
+              <div className="div">
+                <h5>Password</h5>
+                <input
+                  type="password"
+                  autoComplete="off"
+                  value={formData.password}
+                  name="password"
+                  className="input"
+                  onChange={handleInputChange}
+                  //   required
+                />
+              </div>
+            </div>
+            {errors.password && <p className="error_text">{errors.password}</p>}
+            <a className="forgot_password" href="#">
+              Forgot Password?
+            </a>
+            <button className="btn_login" type="submit">
               Login
             </button>
-          </div>
-        </form>
+          </form>
+        </div>
+            </div>
+        </div>
       </div>
-    </div>
+    </>
   );
-};
+}
 
 export default Login;

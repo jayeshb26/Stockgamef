@@ -15,7 +15,7 @@ const TAB = "Tab";
 const NUMBER_REGX = /^\d{0,8}$/;
 
 const STKGrid = () => {
-  const { emitEvent, mainData } = useSocket();
+  const { emitEvent, mainData,startGame } = useSocket();
   const [activeCellIndex, setActiveCellIndex] = useState(-1);
   const [gridArray, setGridArray] = useState([]);
   // const [modifiedValues, setModifiedValues] = useState([...gridArray]);
@@ -23,11 +23,9 @@ const STKGrid = () => {
   const [reset, setReset] = useState(false);
   const [inputValue, setInputValue] = useState(null);
   var BID_ARRAY = [];
-
+  console.log('startGame',startGame)
   // console.log('mainData',mainData)
   const placeBid = () => {
-    var updtedBid;
-    var bidObj = {};
     var total
     modifiedValues.filter((bid) => {
       if (bid.price) {
@@ -35,22 +33,13 @@ const STKGrid = () => {
         BID_ARRAY = [...BID_ARRAY, bid];
       }
     });
-    // bidObj = {
-    //   gameName:"stockskill",
-    //   playerId:"622596708f8ea7140b372572",
-    //   position:BID_ARRAY,
-    //   betPoint:total
-    // }
-    // console.log("works", bidObj);
     emitEvent("placeBet", {
       gameName:"stockskill",
       playerId:"622596708f8ea7140b372572",
       position:BID_ARRAY,
       betPoint:total
     });
-    // if(bid){
-    //   toast.info(bid.data.result)
-    // }
+    setModifiedValues(gridArray.map((item) => ({ ...item })));
   };
 
   useEffect(() => {
@@ -80,13 +69,13 @@ const STKGrid = () => {
 
   const handleInputChange = useCallback(
     (e, index) => {
+    if(startGame !== 1) return false;
       const updatedValue = e.target.value;
       const updatedModifiedValues = modifiedValues.map((item, i) =>
         i === index
           ? { ...item, price: updatedValue, className: "row_selected" }
           : item
       );
-      console.log("updatedModifiedValues", updatedModifiedValues);
       setModifiedValues(updatedModifiedValues);
     },
     [modifiedValues]
@@ -135,6 +124,7 @@ const STKGrid = () => {
   }, [handleKeyDown]);
 
   const changeColumn = (e, index) => {
+    if(startGame !== 1) return false;
     const updatedValue = e.target.value;
     const updatedArray = [...modifiedValues];
     if (updatedValue !== "") {
@@ -155,6 +145,7 @@ const STKGrid = () => {
   };
 
   const changeRow = (e, index) => {
+    if(startGame !== 1) return false;
     const updatedValue = e.target.value;
     setInputValue(updatedValue);
     const updatedArray = [...modifiedValues];
