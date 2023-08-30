@@ -1,0 +1,45 @@
+/* .track-horizontal {
+  white-space: nowrap;
+  will-change: transform;
+  animation: marquee-horizontal 10s linear infinite; */
+  /* manipulate the speed of the marquee by changing "40s" line above*/
+/* } */
+
+/* @keyframes marquee-horizontal {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+.flex {
+  display: flex;
+  width: 100%;
+  justify-content: flex-end;
+}
+.marquee-text {
+  display: inline-block;
+  padding: 2px 5px;
+  border-right: 1px solid;
+  font-size: 13px;
+} */
+marquee {
+  color: #32cd32;
+  position: relative;
+}
+.mrq_text{
+  margin-right: 5px;
+  font-weight: 600;
+}
+.mrq_text::after{
+  content: '';
+  border-right: 2px solid;
+  width: 1px;
+  height: 100%;
+  left: 50%;
+  padding: 2px;
+}
+.mrq_text:last-child::after{
+  display: none;
+}

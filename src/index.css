@@ -8,8 +8,8 @@
   --heading-font:30px;
   --semi-heading-font:25px;
   --small-heading:18px;
-  --regular-font:16px;
-  --small-font:14px;
+  --regular-font:14px;
+  --small-font:12px;
   --blue-color:#00a8e8;
   --blue-hover:#3e92cc;
   --white-color:#ffffff;
@@ -23,13 +23,24 @@
   --ink-hover-color:#001C3D;
   --skyblue-color:#dcf0fa;
   --black-color:#000000;
+  --bg-dark:#1E1E1E;
+  --bg-extra-dark:#121212;
+  --bg-semi-dark:#232323;
+  --dark-light:#2E2E2E;
+  --green-color:#01B636;
+  --green-hover:#3BD16F;
+  --danger-color:#DC3545;
+  --danger-hover:#BF3E50;
+  --modal-border-color:#727272;
+  --border-color:#EDEDED;
 }
 body {
   margin: 0;
   font-family: var(--font-family) !important;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background-color: #cbcbcba3 !important;
+  background-color: var(--bg-dark) !important;
+  color: var(--white-color) !important;
 }
 
 code {

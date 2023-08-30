@@ -1,14 +1,20 @@
-import React from 'react'
-import MrkHeader from '../common/Navbar/MrkHeader'
-import ScreenNav from '../common/screenNav/ScreenNav'
-import StockScreen from '../stock-screen/StockScreen'
+import React from "react";
+import MrkHeader from "../common/Navbar/MrkHeader";
+import Marquee from "../common/Marquee/Marquee";
+import STKGrid from "../stock-grid/STKGrid";
+import { SocketProvider } from "../Context/SocketContext";
 
 export const Market = () => {
   return (
     <div>
-      <MrkHeader/>
-      <ScreenNav/>
-      <StockScreen/>
+      <SocketProvider>
+      <MrkHeader />
+      <div className="main_wrapper">
+        <Marquee />
+        <STKGrid />
+      </div>
+      </SocketProvider>
     </div>
-  )
-}
+  );
+};
+

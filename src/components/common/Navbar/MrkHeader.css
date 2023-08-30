@@ -4,7 +4,19 @@
 }
 .navbar_wrapper{
     width: 100%;
+}
+.navbar_wrapper ul{
     display: flex;
+    justify-content: flex-start;
+    /* background: #2F4F4E; */
+    background: var(--dark-light);
+    height: 40px;
+}
+.navbar_wrapper ul li{
+    width: 100%;
+    padding: 8px;
+    border-right: 1px solid;
+    text-align: center;
 }
 .logo{
     display: inline-block;
@@ -50,4 +62,77 @@
 }
 .market-list p{
     margin-bottom: 5px;
+}
+.hidden{
+    display: none;
+}
+.display-picture{
+    position: relative;
+}
+.display-picture img{
+    border-radius: 50%;
+}
+.show_profile{
+    position: absolute;
+    z-index: 500;
+    border: none;
+    right: 20px;
+}
+.profile_UL{
+    display: flex;
+    flex-direction: column;
+    background: #121212 !important;
+    padding: 8px;
+    height: 100% !important;
+}
+.profile_UL li{
+    border: none;
+    min-width: 150px;
+    border-right: none !important;
+}
+.profile_UL li a{
+    color: var(--white-color);
+    text-decoration: none;
+    width: 100%;
+    display: block;
+}
+.profile_UL li a span{
+    width: 100%;
+    display: block;
+    margin-bottom: 0px;
+}
+.profile_UL li:hover{
+    background-color: var(--bg-semi-dark);
+    cursor: pointer;
+}
+.dropdown-toggle {
+    background: transparent;
+    border: none;
+    padding-top: 0px;
+}
+
+.dropdown-toggle:hover {
+    background: transparent !important;
+}
+
+.dropdown-toggle .btn-check:checked+.btn,
+.btn.active,
+.btn.show,
+.btn:first-child:active,
+:not(.btn-check)+.btn:active {
+    background: transparent;
+    border: none;
+}
+.dropdown-menu{
+    background-color: var(--dark-light);
+}
+.dropdown-item{
+    color: var(--white-color) !important;
+}
+.dropdown-item:hover{
+    color: #000 !important;
+}
+.dropdown-item:active{
+    background-color: var(--white-color) !important;
+    color: #000 !important;
 }

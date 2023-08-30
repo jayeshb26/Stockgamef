@@ -1,28 +1,35 @@
-import React from 'react'
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
-import { routes } from './RouterPage';
+import { BrowserRouter, Route, Routes, Link, Outlet, Navigate } from 'react-router-dom';
+import { Market } from '../components/Market/Market';
+import Login from '../components/Auth/Login';
+import Home from '../components/home/Home';
+import Notfound from '../components/Notfound/Notfound';
+import History from '../components/user/History/History';
 
-const Routers = () => {
-    return (
-        <div>
-            <Router>
-                <Routes>
-                    {routes.map((route, index) => (
-                        <Route key={index} path={route.path} element={route.element}>
-                            {route.children &&
-                                route.children.map((child, childIndex) =>
-                                    child.index ? (
-                                        <Route key={childIndex} index element={child.element} />
-                                    ) : (
-                                        <Route key={childIndex} path={child.path} element={child.element} />
-                                    )
-                                )}
-                        </Route>
-                    ))}
-                </Routes>
-            </Router>
-        </div>
-    )
-}
+// Simulated authentication state
+const isAuthenticated = localStorage.getItem('authToken');
 
-export default Routers;
+const PrivateRoute = ({ path, element }) => {
+  return isAuthenticated ? <Outlet /> : <Navigate to="/login" />;
+};
+
+const AppRouter = () => {
+  return (
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/login" element={<Login />} />
+        {/* <PrivateRoute path="/market" element={<Market />} /> */}
+        <Route element={<PrivateRoute />}>
+            <Route path="/market" element={<Market />} />
+        </Route>
+        <Route element={<PrivateRoute />}>
+            <Route path="/market/history" element={<History/>} />
+        </Route>
+        <Route path="*" element={<Notfound />} />
+      </Routes>
+    </BrowserRouter>
+  );
+};
+
+export default AppRouter;
+

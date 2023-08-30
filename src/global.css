@@ -32,6 +32,10 @@ ul{
     padding-left: 0px;
     margin-bottom: 0px;
 }
+/* a{
+  text-decoration: none !important;
+  color: var(--white-color);
+} */
 .blue-btn {
   background-color: var(--blue-color) ;
   font-size: var(--regular-font) ;
@@ -44,7 +48,7 @@ ul{
   color: var(--white-color) !important;
   font-weight: 500;
   font-family: var(--font-family);
-  border: var(--blue-color) !important;
+  /* border: var(--blue-color) !important; */
 }
 .blue-btn:hover{
     background-color: var(--blue-hover);
@@ -57,8 +61,75 @@ ul{
   color: var(--white-color) !important;
   font-weight: 500;
   font-family: var(--font-family);
-  border: var(--blue-color) !important;
+  /* border: var(--blue-color) !important; */
 }
+.success-btn {
+  background-color: var(--green-color) ;
+  font-size: var(--regular-font) ;
+  color: var(--white-color) ;
+  font-weight: 500;
+  font-family: var(--font-family);
+  padding: 3px 10px;
+  border-radius: unset;
+}
+.success-btn:hover {
+  background-color: var(--green-hover);
+  font-size: var(--regular-font) ;
+  color: var(--white-color) ;
+  font-weight: 500;
+  font-family: var(--font-family);
+}
+.success-btn:active {
+  background-color: var(--green-hover) !important;
+  font-size: var(--regular-font) ;
+  color: var(--white-color) !important;
+  font-weight: 500;
+  font-family: var(--font-family);
+  border-color:var(--green-color) !important;
+}
+.success-btn:focus-visible {
+  background-color: var(--green-hover) ;
+  font-size: var(--regular-font) ;
+  color: var(--white-color) ;
+  font-weight: 500;
+  font-family: var(--font-family);
+  border:1px solid var(--green-color);
+}
+
+.danger-btn {
+  background-color: var(--danger-color) ;
+  font-size: var(--regular-font) ;
+  color: var(--white-color) ;
+  font-weight: 500;
+  font-family: var(--font-family);
+  padding: 3px 10px;
+  border-radius: unset;
+}
+.danger-btn:hover {
+  background-color: var(--danger-hover);
+  font-size: var(--regular-font) ;
+  color: var(--white-color) ;
+  font-weight: 500;
+  font-family: var(--font-family);
+  transition: all 0.2s ease;
+}
+.danger-btn:active {
+  background-color: var(--danger-hover) !important;
+  font-size: var(--regular-font) ;
+  color: var(--white-color) !important;
+  font-weight: 500;
+  font-family: var(--font-family);
+  border-color:var(--danger-color) !important;
+}
+.danger-btn:focus-visible {
+  background-color: var(--danger-hover) ;
+  font-size: var(--regular-font) ;
+  color: var(--white-color) ;
+  font-weight: 500;
+  font-family: var(--font-family);
+  border:1px solid var(--danger-color);
+}
+
 .orange-bg{
     background-color: var(--orange-color);
     color: var(--white-color);
@@ -113,4 +184,7 @@ ul{
   background-color: var(--ink-hover-color);
   color: var(--white-color);
   font-family: var(--font-family);
+}
+.f_right{
+  float: right !important;
 }
