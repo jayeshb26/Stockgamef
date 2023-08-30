@@ -39,12 +39,6 @@ export const SocketProvider = ({ children }) => {
       }
       setSocket(data)
     });
-    // Define a custom event emitter function
-    // const emitEvent = (eventName, eventData) => {
-    //   if (socket) {
-    //     newSocket.emit(eventName, eventData);
-    //   }
-    // };
     
     return () => {
       newSocket.disconnect();

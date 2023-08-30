@@ -3,24 +3,36 @@ import "./Footer.css";
 import ResultUI from "./ResultUI";
 import { useSocket } from "../../Context/SocketContext";
 
-const Footer = ({ setReset, placeBid }) => {
+const Footer = ({ setReset, placeBid,modifiedValues }) => {
   const { placeBid: resultData } = useSocket();
   const [result, setResult] = useState(resultData);
   const [isResultOpen, setIsResultOpen] = useState(false);
+  const [totalPriceValue,setTotalPriceValue] = useState(0);
   useEffect(() => {
     if (resultData) {
       setResult(resultData);
       setIsResultOpen(true)
     }
   }, [resultData]);
-  // setTimeout(() => {
-  //   resultData = null;
-  // }, 10000);
+
   const closeResult = () => {
     setIsResultOpen(false);
   };
-
-
+  useEffect(()=>{
+    var total = 0;
+     modifiedValues.filter(async(item) => {
+       if(item.price){
+        if(item.price == null || undefined) total=0;
+        total = total + +item.price;
+        setTotalPriceValue(total)
+      }else{
+        item.price = 0
+        total = total + +item.price;
+        setTotalPriceValue(total)
+      }
+    });
+  },[totalPriceValue,modifiedValues])
+ 
   return (
     <>
       <div className="footer_wrapper">
@@ -58,11 +70,11 @@ const Footer = ({ setReset, placeBid }) => {
               <div className="right_footer col-md-4">
                 <form>
                   <div
-                    style={{
-                      border: "1px solid #000",
-                      padding: "10px",
-                      display: "inline-block",
-                    }}
+                    // style={{
+                    //   border: "1px solid #000",
+                    //   padding: "10px",
+                    //   display: "inline-block",
+                    // }}
                   >
                     {/* <BarcodeDisplay value="123456789" /> */}
                     {/* <Barcode
@@ -73,7 +85,8 @@ const Footer = ({ setReset, placeBid }) => {
                     /> */}
                   </div>
                   {/* <input type="text" className="qty_input" value={0} /> */}
-                  <input type="text" className="price_input" value={0} />
+                  <label htmlFor="Total Bid">Toatal Bid:</label>
+                  <input type="text" className="price_input" value={totalPriceValue} />
                 </form>
               </div>
             </div>

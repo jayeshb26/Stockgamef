@@ -2,8 +2,7 @@ import React, { useEffect, useState, useCallback } from "react";
 import "./STKGrid.css";
 import { useSocket } from "../Context/SocketContext";
 import Footer from "../common/Footer/Footer";
-import { toast } from "react-toastify";
-// import ReactLoading from "react-loading";
+
 
 const GRID_SIZE = 10;
 const TOTAL_CELLS = GRID_SIZE * GRID_SIZE;
@@ -23,8 +22,7 @@ const STKGrid = () => {
   const [reset, setReset] = useState(false);
   const [inputValue, setInputValue] = useState(null);
   var BID_ARRAY = [];
-  console.log('startGame',startGame)
-  // console.log('mainData',mainData)
+
   const placeBid = () => {
     var total
     modifiedValues.filter((bid) => {
@@ -47,13 +45,11 @@ const STKGrid = () => {
       setGridArray(mainData?.data?.stock);
       setModifiedValues(mainData?.data.stock.map((item) => ({ ...item })));
     }
-    // console.log('gridArray',gridArray)
   }, [mainData]);
   useEffect(() => {
     if (reset) {
       setModifiedValues(gridArray.map((item) => ({ ...item }))); // Reset to defaultArray
       setActiveCellIndex(-1); // Reset active cell
-
       // Delay resetting gridArray to the next render cycle
       setTimeout(() => {
         setGridArray(gridArray.map((item) => ({ ...item }))); // Reset gridArray
@@ -68,8 +64,8 @@ const STKGrid = () => {
   }, [activeCellIndex]);
 
   const handleInputChange = useCallback(
-    (e, index) => {
-    if(startGame !== 1) return false;
+    (e, index) => { 
+    // if(startGame !== 1) return false;
       const updatedValue = e.target.value;
       const updatedModifiedValues = modifiedValues.map((item, i) =>
         i === index
@@ -124,7 +120,7 @@ const STKGrid = () => {
   }, [handleKeyDown]);
 
   const changeColumn = (e, index) => {
-    if(startGame !== 1) return false;
+    // if(startGame !== 1) return false;
     const updatedValue = e.target.value;
     const updatedArray = [...modifiedValues];
     if (updatedValue !== "") {
@@ -137,7 +133,7 @@ const STKGrid = () => {
     } else {
       for (let i = 0; i < GRID_SIZE; i++) {
         const currentIndex = index + i * GRID_SIZE;
-        updatedArray[currentIndex].price = null;
+        updatedArray[currentIndex].price = 0;
         updatedArray[currentIndex].className = null;
       }
       setModifiedValues(updatedArray);
@@ -145,7 +141,7 @@ const STKGrid = () => {
   };
 
   const changeRow = (e, index) => {
-    if(startGame !== 1) return false;
+    // if(startGame !== 1) return false;
     const updatedValue = e.target.value;
     setInputValue(updatedValue);
     const updatedArray = [...modifiedValues];
@@ -159,7 +155,7 @@ const STKGrid = () => {
     } else {
       for (let i = 0; i < GRID_SIZE; i++) {
         const currentIndex = i + index * GRID_SIZE;
-        updatedArray[currentIndex].price = null;
+        updatedArray[currentIndex].price = 0;
         updatedArray[currentIndex].className = null;
       }
       setModifiedValues(updatedArray);
@@ -236,30 +232,9 @@ const STKGrid = () => {
             
         </div>
       </div>
-      <Footer placeBid={placeBid} setReset={setReset} />
+      <Footer placeBid={placeBid} setReset={setReset} modifiedValues={modifiedValues} />
     </>
   );
 };
 
 export default STKGrid;
-// ) : (
-            //   <div
-            //     className=""
-            //     style={{
-            //       width: "100%",
-            //       display: "flex",
-            //       height: "100vh",
-            //       justifyContent: "center",
-            //       alignItems:'center'
-            //     }}
-            //   >
-            //     <ReactLoading
-            //       className="page-loader"
-            //       type="spin"
-            //       color="#fff"
-            //       height={50}
-            //       width={50}
-            //     />
-            //   </div>
-            // )}
-          // </ul>

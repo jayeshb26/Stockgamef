@@ -23,6 +23,7 @@
 }
 .right_footer form{
     float: right;
+    text-align: right;
 }
 
 /* .left_footer ul{

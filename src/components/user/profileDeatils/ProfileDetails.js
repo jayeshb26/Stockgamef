@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { AppConstant } from "../../../AppConstant";
 import api from "../../Service/API/api";
+import { toast } from "react-toastify";
 const ProfileDetails = () => {
   const [profileData, setProfileData] = useState();
   useEffect(() => {
@@ -15,6 +16,7 @@ const ProfileDetails = () => {
         }
       })
       .catch((error) => {
+        toast.error(error)
         console.log("ERROR", error);
       });
   };

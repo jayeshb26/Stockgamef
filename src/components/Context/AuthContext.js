@@ -25,7 +25,6 @@ export const AuthProvider = ({ children }) => {
     // Subscribe to the Redux store to update context state on LOGIN_SUCCESS_CONTEXT_UPDATE
     const unsubscribe = store.subscribe(() => {
       const { loggedIn, token } = store.getState().auth;
-      console.log("loggedIn", loggedIn, "token", token);
       updateAuthContextValue(loggedIn, token);
     });
     // Unsubscribe when the component unmounts

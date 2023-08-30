@@ -1,5 +1,5 @@
 import React from "react";
-import "./SimpleLogin.css";
+import "./Login.css";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
@@ -62,6 +62,7 @@ const Login = () => {
     if (validateForm()) {
       dispatch(logIn(formData));
     } else {
+      toast.error('Invalid form details')
       console.log("Form has errors");
     }
   };

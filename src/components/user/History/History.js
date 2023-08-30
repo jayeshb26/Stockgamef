@@ -31,7 +31,6 @@ const History = () => {
       console.log("Error", error);
     }
   };
-  console.log("history", history);
   return (
     <>
       <div className="haeder_wrap"><MrkHeader /></div>
