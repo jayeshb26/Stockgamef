@@ -14,13 +14,15 @@ const TAB = "Tab";
 const NUMBER_REGX = /^\d{0,8}$/;
 
 const STKGrid = () => {
-  const { emitEvent, mainData,startGame } = useSocket();
+  const { emitEvent, mainData,statues } = useSocket();
   const [activeCellIndex, setActiveCellIndex] = useState(-1);
   const [gridArray, setGridArray] = useState([]);
   // const [modifiedValues, setModifiedValues] = useState([...gridArray]);
   const [modifiedValues, setModifiedValues] = useState([]);
   const [reset, setReset] = useState(false);
   const [inputValue, setInputValue] = useState(null);
+  const [status, setStatus] = useState(null);
+
   var BID_ARRAY = [];
 
   const placeBid = () => {
@@ -29,14 +31,17 @@ const STKGrid = () => {
       if (bid.price) {
         total = +bid.price*10
         BID_ARRAY = [...BID_ARRAY, bid];
+        emitEvent("placeBet", {
+          gameName:"stockskill",
+          playerId:"622596708f8ea7140b372572",
+          position:BID_ARRAY,
+          betPoint:total
+        });
+      }else{
+        return false; 
       }
     });
-    emitEvent("placeBet", {
-      gameName:"stockskill",
-      playerId:"622596708f8ea7140b372572",
-      position:BID_ARRAY,
-      betPoint:total
-    });
+    
     setModifiedValues(gridArray.map((item) => ({ ...item })));
   };
 
@@ -45,7 +50,10 @@ const STKGrid = () => {
       setGridArray(mainData?.data?.stock);
       setModifiedValues(mainData?.data.stock.map((item) => ({ ...item })));
     }
-  }, [mainData]);
+    if(statues){
+      setStatus(statues)
+    }
+  }, [mainData,statues]);
   useEffect(() => {
     if (reset) {
       setModifiedValues(gridArray.map((item) => ({ ...item }))); // Reset to defaultArray
@@ -185,6 +193,7 @@ const STKGrid = () => {
               onChange={(e) => changeColumn(e, index)}
               name=""
               id=""
+              disabled={status !== 1}
             />
           ))}
         </div>
@@ -200,6 +209,7 @@ const STKGrid = () => {
               key={index}
               name=""
               id=""
+              disabled={status !== 1}
             />
           ))}
         </div>
@@ -220,6 +230,7 @@ const STKGrid = () => {
                         onChange={(e) => handleInputChange(e, index)}
                         onBlur={handleInputBlur}
                         autoFocus
+                        disabled={status !== 1}
                       />
                     ) : (
                       <p> {item.price ? item.price : item.number}</p>

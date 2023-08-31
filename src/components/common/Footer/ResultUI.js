@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from "react";
 import "./ResultUI.css";
 const ResultUI = ({ resultData ,resetResult}) => {
-  const [result,setResult] = useState(resultData?.data?.user);
-
+  const [result,setResult] = useState(null);
+  useEffect(()=>{
+    setResult(resultData?.data?.data)
+  },[resultData])
   return (
     <div>
       <div className="wrap">
@@ -69,63 +71,43 @@ const ResultUI = ({ resultData ,resetResult}) => {
               <div className="winner_details">
                 <h3>Results Details</h3>
                 <div className="inner_wrapper">
-                  <div className="records row">
+                  <div className="records row green">
                     <div className="col-md-6 text-left">
-                      <span>Won Point :</span>
+                      <span>Position <i class="fa-solid fa-chart-line"></i></span>
                     </div>
                     <div className="col-md-1">:</div>
-                    <div className="col-md-5">
-                      <span>{result.wonPoint}</span>
+                    <div className="col-md-5 text-left">
+                      <span>{result?.number}</span>
                     </div>
                   </div>
 
-                  <div className="records row">
+                  <div className="records row blue">
                     <div className="col-md-6 text-left">
-                      <span>Play Point :</span>
+                      <span>Stock Name <i class="fa-solid fa-indian-rupee-sign"></i></span>
                     </div>
                     <div className="col-md-1">:</div>
-                    <div className="col-md-5">
-                      <span>{result.playPoint}</span>
+                    <div className="col-md-5 text-left">
+                      <span>{result?.name}</span>
                     </div>
                   </div>
 
-                  <div className="records row">
+                  <div className="records row pink">
                     <div className="col-md-6 text-left">
-                      <span>Transaction Point</span>
+                      <span>Stock Symbol <i class="fa-solid fa-layer-group"></i></span>
                     </div>
                     <div className="col-md-1">:</div>
-                    <div className="col-md-5">
-                      <span>{result.transactionPin}</span>
+                    <div className="col-md-5 text-left">
+                      <span>{result?.symbol}</span>
                     </div>
                   </div>
 
-                  <div className="records row">
+                  <div className="records row yellow">
                     <div className="col-md-6 text-left">
-                      <span>Sharing Point </span>
+                      <span>Market <i class="fa-solid fa-magnifying-glass-chart"></i></span>
                     </div>
                     <div className="col-md-1">:</div>
-                    <div className="col-md-5">
-                      <span>{result.sharingPoint}</span>
-                    </div>
-                  </div>
-
-                  <div className="records row">
-                    <div className="col-md-6 text-left">
-                      <span>Sharing Percentage</span>
-                    </div>
-                    <div className="col-md-1">:</div>
-                    <div className="col-md-5">
-                      <span>{result.sharingPercentage}</span>
-                    </div>
-                  </div>
-
-                  <div className="records row">
-                    <div className="col-md-6 text-left">
-                      <span>Play Point</span>
-                    </div>
-                    <div className="col-md-1">:</div>
-                    <div className="col-md-5">
-                      <span>{result.playPoint}</span>
+                    <div className="col-md-5 text-left">
+                      <span>{result?.market}</span>
                     </div>
                   </div>
                 </div>

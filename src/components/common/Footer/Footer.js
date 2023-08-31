@@ -4,13 +4,14 @@ import ResultUI from "./ResultUI";
 import { useSocket } from "../../Context/SocketContext";
 
 const Footer = ({ setReset, placeBid,modifiedValues }) => {
-  const { placeBid: resultData } = useSocket();
+  const { resultData } = useSocket();
   const [result, setResult] = useState(resultData);
   const [isResultOpen, setIsResultOpen] = useState(false);
   const [totalPriceValue,setTotalPriceValue] = useState(0);
   useEffect(() => {
     if (resultData) {
-      setResult(resultData);
+      setResult(resultData?.data.data);
+      // console.log('resultData?.data',resultData?.data.data)
       setIsResultOpen(true)
     }
   }, [resultData]);
