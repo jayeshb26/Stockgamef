@@ -15,6 +15,8 @@ export const SocketProvider = ({ children }) => {
   const [mainData, setMainData] = useState(null);
   const [placeBid, setPlaceBid] = useState(null);
   const [startGame, setStartGame] = useState();
+  const [resultData, setResultData] = useState(null);
+  const [statues, setStatues] = useState(1);
 
   var newSocket;
   newSocket= io.connect(AppConstant.WEBSOCKET_URL);
@@ -30,9 +32,15 @@ export const SocketProvider = ({ children }) => {
       console.log("Response from server:", data);
       if(data.en == 'join'){
         setMainData(data);
+        setStatues(data.data.status)
       }
       else if(data.en == "game start"){
         setStartGame(data.status)
+        setStatues(data.status)
+      }
+      else if(data.en == 'result'){
+        setResultData(data)
+        setStatues(data.status)
       }
       else{
         setMainData(null)
@@ -65,7 +73,9 @@ export const SocketProvider = ({ children }) => {
     mainData,
     placeBid,
     emitEvent, // Make sure to include the function in the context value
-    startGame
+    startGame,
+    resultData,
+    statues
   };
   return (
     <SocketContext.Provider value={contextValue}>{children}</SocketContext.Provider>

@@ -61,21 +61,25 @@ const Login = () => {
     e.preventDefault();
     if (validateForm()) {
       dispatch(logIn(formData));
+      handleLogin();
     } else {
       toast.error('Invalid form details')
       console.log("Form has errors");
     }
   };
 
-  useEffect(() => {
-    if (loginState.error) {
-      toast.error(loginState.error);
-    }
-  }, [loginState.error]);
+  // useEffect(() => {
+  //   if (loginState.error) {
+  //     toast.error(loginState.error);
+  //   }
+  // }, [loginState.error]);
 
   useEffect(() => {
-    handleLogin();
-  }, [loginState.loggedIn, navigate]);
+    console.log('loginState.loggedIn',loginState.loggedIn)
+    if(loginState.loggedIn){
+      window.location.href = '/market'
+    }
+  }, [loginState]);
 
   const addFocusClass = (event) => {
     const parent = event.target.parentNode.parentNode;

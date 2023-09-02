@@ -151,3 +151,20 @@ a.modal-open {
 .text-left {
   text-align: left;
 }
+.records .text-left i {
+  float: right;
+  padding-right: 45px;
+  font-size: 18px;
+}
+.green{
+  color: #0ff10f;
+}
+.blue{
+  color: #34aafc;
+}
+.pink{
+  color: #ff91ee;
+}
+.yellow{
+  color: yellow;
+}
