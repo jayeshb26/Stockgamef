@@ -3,8 +3,8 @@ import "./Footer.css";
 import ResultUI from "./ResultUI";
 import { useSocket } from "../../Context/SocketContext";
 
-const Footer = ({ setReset, placeBid,modifiedValues }) => {
-  const { resultData } = useSocket();
+const Footer = ({ setReset, placeBid,modifiedValues,setListScreen }) => {
+  const { resultData,startGame } = useSocket();
   const [result, setResult] = useState(resultData);
   const [isResultOpen, setIsResultOpen] = useState(false);
   const [totalPriceValue,setTotalPriceValue] = useState(0);
@@ -14,10 +14,14 @@ const Footer = ({ setReset, placeBid,modifiedValues }) => {
       // console.log('resultData?.data',resultData?.data.data)
       setIsResultOpen(true)
     }
-  }, [resultData]);
+    if(startGame){
+      closeResult();
+    }
+  }, [resultData,startGame]);
 
   const closeResult = () => {
     setIsResultOpen(false);
+    setListScreen(false)
   };
   useEffect(()=>{
     var total = 0;
@@ -47,6 +51,12 @@ const Footer = ({ setReset, placeBid,modifiedValues }) => {
                   onClick={() => setReset(true)}
                 >
                   Reset
+                </button>
+                <button
+                  className="btn inkcolor-bg"
+                  onClick={() => setReset(true)}
+                >
+                  Claim Rewards
                 </button>
               </div>
               <div className="center_screen col-md-4">
