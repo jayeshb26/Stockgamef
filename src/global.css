@@ -169,16 +169,22 @@ ul{
   background-color: var(--ink-color);
   color: var(--white-color);
   font-family: var(--font-family);
+  border: none;
+  outline: none;
 }
 .inkcolor-bg:hover{
   background-color: var(--ink-hover-color);
   color: var(--white-color);
   font-family: var(--font-family);
+  outline: none;
+  border: none;
 }
 .inkcolor-bg:active{
   background-color: var(--ink-hover-color) !important;
   color: var(--white-color) !important;
   font-family: var(--font-family);
+  outline: none;
+  border: none;
 }
 .inkcolor-bg:focus{
   background-color: var(--ink-hover-color);

@@ -1,3 +1,4 @@
+
 import React, { useEffect, useState } from "react";
 import "./MrkHeader.css";
 import { Dropdown } from "react-bootstrap";
@@ -8,19 +9,47 @@ import { useDispatch } from "react-redux";
 import { logOut } from "../../../Redux/Auth/AuthAction";
 import { useSocket } from "../../Context/SocketContext";
 import Avatar from "react-avatar";
+import moment from "moment/moment";
 
 const MrkHeader = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const socketValue = useSocket();
-  const [socketData, setSocketData] = useState(null);
+  
+  // Define a function to get the default data from local storage or set initial values.
+  const getDefaultData = () => {
+    const storedDefaultData = localStorage.getItem("defaultData");
+    if (storedDefaultData) {
+      return JSON.parse(storedDefaultData);
+    } else {
+      return {
+        date: null,
+        starttime: null,
+        resulttime: null,
+        betclose: null,
+        creditPoint: "000",
+      };
+    }
+  };
+
+  const [socketData, setSocketData] = useState(getDefaultData);
 
   useEffect(() => {
     if (socketValue?.mainData) {
-      setSocketData(socketValue.mainData?.data);
+      const newSocketData = socketValue.mainData?.data;
+      setSocketData({
+        date: moment(newSocketData.date).format("DD/MM/YYYY"),
+        starttime: moment.unix(newSocketData.starttime).format("LT"),
+        resulttime: moment.unix(newSocketData.resulttime).format("LT"),
+        betclose: moment.unix(newSocketData.betclose).format("LT"),
+        creditPoint: newSocketData.creditPoint || "000",
+      });
+
+      // Store the updated data in local storage.
+      localStorage.setItem("defaultData", JSON.stringify(socketData));
     }
   }, [socketValue]);
-  
+
   const logout = () => {
     dispatch(logOut());
     navigate("/login");
@@ -35,22 +64,30 @@ const MrkHeader = () => {
               <span>Stock Skill</span>
             </li>
             <li>
-              <span>27/08/2023</span>
+              <span>
+                {socketData.date ? socketData.date : "00/00/0000"}
+              </span>
             </li>
             <li>
-              <span>3:00 PM</span>
+              <span>
+                {socketData.starttime
+                  ? socketData.starttime
+                  : "00:00 AM/PM"}
+              </span>
             </li>
             <li>
-              <span>3:10 PM</span>
+              <span>
+                {socketData.resulttime
+                  ? socketData.resulttime
+                  : "00:00 AM/PM"}
+              </span>
             </li>
             <li>
               <span>4:00</span>
             </li>
             <li>
               <span>
-                {socketData?.creditPoint
-                  ? socketData.creditPoint
-                  : '000'}
+                {socketData.creditPoint ? socketData.creditPoint : "000"}
               </span>
             </li>
             <li>
@@ -79,7 +116,6 @@ const MrkHeader = () => {
                     <Profile />
                   </Dropdown.Item>
                   <Dropdown.Item href={AppConstant.HISTORY}>
-                    {/* <Link to={AppConstant.HISTORY}>History</Link> */}
                     History
                   </Dropdown.Item>
                   <Dropdown.Item href="javascript:void(0);" onClick={logout}>
@@ -94,4 +130,5 @@ const MrkHeader = () => {
     </>
   );
 };
+
 export default MrkHeader;

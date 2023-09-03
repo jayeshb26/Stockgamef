@@ -2,6 +2,7 @@ import React, { useEffect, useState, useCallback } from "react";
 import "./STKGrid.css";
 import { useSocket } from "../Context/SocketContext";
 import Footer from "../common/Footer/Footer";
+import ListScreen from "../common/List-screen/ListScreen";
 
 
 const GRID_SIZE = 10;
@@ -22,6 +23,7 @@ const STKGrid = () => {
   const [reset, setReset] = useState(false);
   const [inputValue, setInputValue] = useState(null);
   const [status, setStatus] = useState(null);
+  const [listScreen,setListScreen] = useState(false);
 
   var BID_ARRAY = [];
 
@@ -37,6 +39,7 @@ const STKGrid = () => {
           position:BID_ARRAY,
           betPoint:total
         });
+        setListScreen(true);
       }else{
         return false; 
       }
@@ -64,7 +67,8 @@ const STKGrid = () => {
         setReset(false);
       }, 0);
     }
-  }, [reset]);
+    console.log('listScreen',listScreen)
+  }, [reset,listScreen]);
   const handleInputBlur = useCallback(() => {
     if (activeCellIndex !== -1) {
       setActiveCellIndex(-1);
@@ -182,7 +186,7 @@ const STKGrid = () => {
 
   return (
     <>
-      <div className="d-flex">
+     {!listScreen ? <> <div className="d-flex">
         <div className="top_black_block"></div>
         <div className="TopSTKGrid">
           {Array.from({ length: GRID_SIZE }).map((_, index) => (
@@ -243,7 +247,9 @@ const STKGrid = () => {
             
         </div>
       </div>
-      <Footer placeBid={placeBid} setReset={setReset} modifiedValues={modifiedValues} />
+      </>
+      :<ListScreen/>}
+      <Footer placeBid={placeBid} setReset={setReset} modifiedValues={modifiedValues} setListScreen={setListScreen} />
     </>
   );
 };
