@@ -15,7 +15,9 @@ const Footer = ({ setReset, placeBid,modifiedValues,setListScreen }) => {
       setIsResultOpen(true)
     }
     if(startGame){
-      closeResult();
+      setTimeout(()=>{
+        closeResult();
+      },3000)
     }
   }, [resultData,startGame]);
 
