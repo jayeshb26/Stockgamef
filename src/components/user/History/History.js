@@ -51,7 +51,7 @@ const History = () => {
                   </tr>
                 </thead>
                 <tbody>
-                  {history ? (
+                  {history.length ? (
                     history.map((item, index) => {
                       return (
                         <tr>

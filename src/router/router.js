@@ -4,7 +4,7 @@ import Login from '../components/Auth/Login';
 import Home from '../components/home/Home';
 import Notfound from '../components/Notfound/Notfound';
 import History from '../components/user/History/History';
-import ListScreen from '../components/common/List-screen/ListScreen';
+import MRKListScreen from '../components/common/listScreen/ListScreen';
 
 // Simulated authentication state
 const isAuthenticated = localStorage.getItem('authToken');
@@ -27,7 +27,7 @@ const AppRouter = () => {
             <Route path="/market/history" element={<History/>} />
         </Route>
         <Route element={<PrivateRoute />}>
-            <Route path="/market/list" element={<ListScreen/>} />
+            <Route path="/market/list" element={<MRKListScreen/>} />
         </Route>
         <Route path="*" element={<Notfound />} />
       </Routes>
