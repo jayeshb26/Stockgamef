@@ -15,7 +15,7 @@ const MrkHeader = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const socketValue = useSocket();
-  
+
   // Define a function to get the default data from local storage or set initial values.
   const getDefaultData = () => {
     const storedDefaultData = localStorage.getItem("defaultData");
@@ -33,6 +33,8 @@ const MrkHeader = () => {
   };
 
   const [socketData, setSocketData] = useState(getDefaultData);
+  const [timer, setTimer] = useState(300);
+  
 
   useEffect(() => {
     if (socketValue?.mainData) {
@@ -49,6 +51,21 @@ const MrkHeader = () => {
       localStorage.setItem("defaultData", JSON.stringify(socketData));
     }
   }, [socketValue]);
+
+  useEffect(()=>{
+    if(timer > 0){
+      const timerID = setTimeout(()=>{
+        setTimer(timer - 1);
+      },1000)
+      return () => clearTimeout(timerID)
+    }
+  },[timer])
+
+  const formatTime = () => {
+    const minutes = Math.floor(timer / 60);
+    const remainingSeconds = timer % 60;
+    return `${minutes}:${remainingSeconds < 10 ? '0' : ''}${remainingSeconds}`;
+  };
 
   const logout = () => {
     dispatch(logOut());
@@ -83,7 +100,7 @@ const MrkHeader = () => {
               </span>
             </li>
             <li>
-              <span>4:00</span>
+              <span>{formatTime()}</span>
             </li>
             <li>
               <span>

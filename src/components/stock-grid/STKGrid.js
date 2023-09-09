@@ -2,8 +2,8 @@ import React, { useEffect, useState, useCallback } from "react";
 import "./STKGrid.css";
 import { useSocket } from "../Context/SocketContext";
 import Footer from "../common/Footer/Footer";
-import ListScreen from "../common/List-screen/ListScreen";
-
+// import ListScreen from "../common/List-screen/ListScreen";
+import MRKListScreen from "../common/listScreen/ListScreen";
 
 const GRID_SIZE = 10;
 const TOTAL_CELLS = GRID_SIZE * GRID_SIZE;
@@ -15,7 +15,7 @@ const TAB = "Tab";
 const NUMBER_REGX = /^\d{0,8}$/;
 
 const STKGrid = () => {
-  const { emitEvent, mainData,statues } = useSocket();
+  const { emitEvent, mainData, statues,betClose } = useSocket();
   const [activeCellIndex, setActiveCellIndex] = useState(-1);
   const [gridArray, setGridArray] = useState([]);
   // const [modifiedValues, setModifiedValues] = useState([...gridArray]);
@@ -23,28 +23,29 @@ const STKGrid = () => {
   const [reset, setReset] = useState(false);
   const [inputValue, setInputValue] = useState(null);
   const [status, setStatus] = useState(null);
-  const [listScreen,setListScreen] = useState(false);
+  const [listScreen, setListScreen] = useState(false);
+  const [playerID,setPlayerID] = useState()
 
   var BID_ARRAY = [];
 
   const placeBid = () => {
-    var total
+    var total;
     modifiedValues.filter((bid) => {
       if (bid.price) {
-        total = +bid.price*10
+        total = +bid.price * 10;
         BID_ARRAY = [...BID_ARRAY, bid];
         emitEvent("placeBet", {
-          gameName:"stockskill",
-          playerId:"622596708f8ea7140b372572",
-          position:BID_ARRAY,
-          betPoint:total
+          gameName: "stockskill",
+          playerId: playerID,
+          position: BID_ARRAY,
+          betPoint: total,
         });
-        setListScreen(true);
-      }else{
-        return false; 
+        // setListScreen(true);
+      } else {
+        return false;
       }
     });
-    
+
     setModifiedValues(gridArray.map((item) => ({ ...item })));
   };
 
@@ -52,11 +53,14 @@ const STKGrid = () => {
     if (mainData?.data?.stock) {
       setGridArray(mainData?.data?.stock);
       setModifiedValues(mainData?.data.stock.map((item) => ({ ...item })));
+      setPlayerID(mainData?.data?.user._id)
     }
-    if(statues){
-      setStatus(statues)
+    if (statues) {
+      setStatus(statues);
     }
-  }, [mainData,statues]);
+    setListScreen(betClose)
+  }, [mainData, statues,betClose]);
+
   useEffect(() => {
     if (reset) {
       setModifiedValues(gridArray.map((item) => ({ ...item }))); // Reset to defaultArray
@@ -67,8 +71,8 @@ const STKGrid = () => {
         setReset(false);
       }, 0);
     }
-    console.log('listScreen',listScreen)
-  }, [reset,listScreen]);
+  }, [reset, listScreen]);
+
   const handleInputBlur = useCallback(() => {
     if (activeCellIndex !== -1) {
       setActiveCellIndex(-1);
@@ -76,8 +80,8 @@ const STKGrid = () => {
   }, [activeCellIndex]);
 
   const handleInputChange = useCallback(
-    (e, index) => { 
-    // if(startGame !== 1) return false;
+    (e, index) => {
+      // if(startGame !== 1) return false;
       const updatedValue = e.target.value;
       const updatedModifiedValues = modifiedValues.map((item, i) =>
         i === index
@@ -186,70 +190,85 @@ const STKGrid = () => {
 
   return (
     <>
-     {!listScreen ? <> <div className="d-flex">
-        <div className="top_black_block"></div>
-        <div className="TopSTKGrid">
-          {Array.from({ length: GRID_SIZE }).map((_, index) => (
-            <input
-              type="number"
-              placeholder={index}
-              key={index}
-              onChange={(e) => changeColumn(e, index)}
-              name=""
-              id=""
-              disabled={status !== 1}
-            />
-          ))}
-        </div>
-      </div>
-      <div className="d-flex">
-        <div className="LeftSTKGrid">
-          {Array.from({ length: GRID_SIZE }).map((_, index) => (
-            <input
-              type="number"
-              placeholder={index}
-              onChange={(e) => changeRow(e, index)}
-              onKeyDown={gridKeydown}
-              key={index}
-              name=""
-              id=""
-              disabled={status !== 1}
-            />
-          ))}
-        </div>
-        <div className="grid_wrapper">
-          <ul>
-            {modifiedValues.map((item, index) => (
-                <li
+      {!listScreen ? (
+        <>
+          {" "}
+          <div className="d-flex">
+            <div className="top_black_block"></div>
+            <div className="TopSTKGrid">
+              {Array.from({ length: GRID_SIZE }).map((_, index) => (
+                <input
+                  type="number"
+                  placeholder={index}
                   key={index}
-                  className={`stocks ${item.className}`}
-                  onClick={() => handleCellClick(index)}
-                >
-                  <a href="javascript:void(0);">
-                    <span>{item.name}</span>
-                    {activeCellIndex === index ? (
-                      <input
-                        type="number"
-                        // value={modifiedValues[index].number}
-                        onChange={(e) => handleInputChange(e, index)}
-                        onBlur={handleInputBlur}
-                        autoFocus
-                        disabled={status !== 1}
-                      />
-                    ) : (
-                      <p> {item.price ? item.price : item.number}</p>
-                      // <p>{item.number}</p>
-                    )}
-                  </a>
-                </li>
+                  onChange={(e) => changeColumn(e, index)}
+                  name=""
+                  id=""
+                  disabled={status !== 1}
+                />
               ))}
-              </ul>
-            
-        </div>
-      </div>
-      </>
-      :<ListScreen/>}
-      <Footer placeBid={placeBid} setReset={setReset} modifiedValues={modifiedValues} setListScreen={setListScreen} />
+            </div>
+          </div>
+          <div className="d-flex">
+            <div className="LeftSTKGrid">
+              {Array.from({ length: GRID_SIZE }).map((_, index) => (
+                <input
+                  type="number"
+                  placeholder={index}
+                  onChange={(e) => changeRow(e, index)}
+                  onKeyDown={gridKeydown}
+                  key={index}
+                  name=""
+                  id=""
+                  disabled={status !== 1}
+                />
+              ))}
+            </div>
+            <div className="grid_wrapper">
+              {modifiedValues.length ? (
+                <ul>
+                  {modifiedValues.map((item, index) => (
+                    <li
+                      key={index}
+                      className={`stocks ${item.className}`}
+                      onClick={() => handleCellClick(index)}
+                    >
+                      <a href="javascript:void(0);">
+                        <span>{item.name}</span>
+                        {activeCellIndex === index ? (
+                          <input
+                            type="number"
+                            // value={modifiedValues[index].number}
+                            onChange={(e) => handleInputChange(e, index)}
+                            onBlur={handleInputBlur}
+                            autoFocus
+                            disabled={status !== 1}
+                          />
+                        ) : (
+                          <p> {item.price ? item.price : item.number}</p>
+                          // <p>{item.number}</p>
+                        )}
+                      </a>
+                    </li>
+                  ))}
+                </ul>
+              ) : (
+                <div className="_no_grid">
+                  <h3>No Grid Found.</h3>
+                </div>
+              )}
+            </div>
+          </div>
+        </>
+      ) : (
+        <MRKListScreen />
+      )}
+      <Footer
+        placeBid={placeBid}
+        setReset={setReset}
+        modifiedValues={modifiedValues}
+        setListScreen={setListScreen}
+      />
     </>
   );
 };

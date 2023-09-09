@@ -17,8 +17,10 @@ export const SocketProvider = ({ children }) => {
   const [startGame, setStartGame] = useState();
   const [resultData, setResultData] = useState(null);
   const [statues, setStatues] = useState(1);
+  const [betClose, setBetClose] = useState(false);
 
   var newSocket;
+
   newSocket= io.connect(AppConstant.WEBSOCKET_URL);
   useEffect(() => {
     const token = localStorage.getItem("authToken");
@@ -28,6 +30,7 @@ export const SocketProvider = ({ children }) => {
         gameName: "stockskill",
       }); // Replace with your authentication token
     });
+
     newSocket.on("res", (data) => {
       console.log("Response from server:", data);
       if(data.en == 'join'){
@@ -35,12 +38,17 @@ export const SocketProvider = ({ children }) => {
         setStatues(data.data.status)
       }
       else if(data.en == "game start"){
-        setStartGame(data.status)
-        setStatues(data.status)
+        setStartGame(data.status);
+        setStatues(data.status);
+        getNewGridData();
       }
       else if(data.en == 'result'){
         setResultData(data)
-        setStatues(data.status)
+        setStatues(data.status);
+        setBetClose(false)
+      }
+      else if(data.en == "bet closed"){
+        setBetClose(true)
       }
       else{
         setMainData(null)
@@ -68,6 +76,14 @@ export const SocketProvider = ({ children }) => {
       setPlaceBid(data)
     }
   })
+
+  const getNewGridData = () =>{
+    const token = localStorage.getItem("authToken");
+    return newSocket.emit("getnew", {
+      token: `Bearer ${token}`,
+    });
+  }
+
   const contextValue = {
     newSocket,
     mainData,
@@ -75,7 +91,8 @@ export const SocketProvider = ({ children }) => {
     emitEvent, // Make sure to include the function in the context value
     startGame,
     resultData,
-    statues
+    statues,
+    betClose
   };
   return (
     <SocketContext.Provider value={contextValue}>{children}</SocketContext.Provider>
