@@ -1,3 +1,5 @@
+import { AppConstant } from "./AppConstant";
+
 // var total = 0;
 export const MRKColumn = () => {
   return [
@@ -26,21 +28,11 @@ export const HistoryRows = [
   { bet: "Bet" },
 ];
 
-// export const getTotalPrice = async (array) => {
-//   total =0
-//   if (array) {
-//     return array.filter(async(item) => {
-//       if(item.price){
-//         total = total + +item.price
-//       }
-//     });
-//   }
-//   return total;
-// };
+export const BreadcumbsArray = [
+  {icon:'fa-solid fa-chart-simple',url:AppConstant.MARKET_NEW,title:'Market'},
+  {icon:'fa-solid fa-clock-rotate-left',url:AppConstant.HISTORY,title:'History',active:true},
+]
 
-// export const totalPrice = () =>{
-//   return total
-// }
 export const listArray = [
   {
     number: "10",

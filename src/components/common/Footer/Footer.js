@@ -98,7 +98,7 @@ const Footer = ({ setReset, placeBid,modifiedValues,setListScreen }) => {
                     /> */}
                   </div>
                   {/* <input type="text" className="qty_input" value={0} /> */}
-                  <label htmlFor="Total Bid">Toatal Bid:</label>
+                  <label htmlFor="Total Bid">Total Amount:</label>
                   <input type="text" className="price_input" value={totalPriceValue} />
                 </form>
               </div>

@@ -17,6 +17,13 @@ const Login = () => {
   });
   useEffect(() => {}, [loginState]);
 
+  useEffect(()=>{
+    const token = localStorage.getItem('authToken');
+    if(token){
+      navigate('/market')
+    }
+  },[])
+
   const [errors, setErrors] = useState({
     userName: "",
     password: "",

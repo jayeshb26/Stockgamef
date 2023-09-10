@@ -10,6 +10,7 @@ import { logOut } from "../../../Redux/Auth/AuthAction";
 import { useSocket } from "../../Context/SocketContext";
 import Avatar from "react-avatar";
 import moment from "moment/moment";
+import Details from "../../user/Details/Details";
 
 const MrkHeader = () => {
   const dispatch = useDispatch();
@@ -110,11 +111,11 @@ const MrkHeader = () => {
             <li>
               <span>Last Order</span>
             </li>
-            <li>
+            {/* <li>
               <span>Last Point</span>
-            </li>
+            </li> */}
             <li>
-              <span>Details</span>
+              <span><Details/></span>
             </li>
             <li>
               <span>Pre orders</span>
