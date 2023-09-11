@@ -9,7 +9,6 @@ const PrintPos = () => {
     { heading: 'betclose', details: 1694460843.089 },
     { heading: 'creditPoint', details: 4980 },
     { heading: 'date', details: '2023-09-11 07:33:08' },
-    // Add more data pairs as needed
   ];
 
   const printData = () => {
@@ -21,7 +20,6 @@ const PrintPos = () => {
           .style('bu')
           .size(1, 1);
 
-        // Loop through the data array and print each pair
         data.forEach((item) => {
           printer.text(`${item.heading} : ${item.details}`);
         });
