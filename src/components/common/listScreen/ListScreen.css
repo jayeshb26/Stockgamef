@@ -44,8 +44,8 @@
    */
 .custom-table {
   text-align: center;
-  width: 100%;
-  min-width: 1024px;
+  /* width: 100%;
+  min-width: 1024px; */
   display: inline-block;
   background: #000;
 }
@@ -57,11 +57,11 @@
 }
 .custom-table .table-header > div:first-child,
 .custom-table .table-row > div:first-child {
-  width: 5%;
+  width: 8%;
 }
 .custom-table .table-header > div:nth-child(2),
 .custom-table .table-row > div:nth-child(2) {
-  width: 35%;
+  width: 32%;
 }
 .custom-table .table-header > div:last-child,
 .custom-table .table-row > div:last-child {
@@ -111,4 +111,9 @@
   position: sticky;
   top: 0;
   z-index: 10;
+}
+@media screen and (max-width:767px) {
+  .m-done{
+    display: none !important;
+  }
 }

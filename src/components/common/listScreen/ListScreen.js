@@ -43,9 +43,9 @@ const MRKListScreen = () => {
       <div className="list_sreen">
         <div class="container-fluid">
           <div class="row">
-            <div class="custom-table">
+            <div class="custom-table col-md-6">
               <div class="table-header sticky">
-                <div>S No</div>
+                <div>Sr No</div>
                 <div>Stock Name</div>
                 <div>Symbol</div>
                 <div>Stock Market</div>
@@ -54,7 +54,7 @@ const MRKListScreen = () => {
               <div class="table-content">
                 {List && List.map((item ,index)=>{
                     index = index +1;
-                    return <div class="table-row" style={{ background: item.color }}>
+                    return <> {index <= 50 &&<div class="table-row" style={{ background: item.color }}>
                     <div>{index}</div>
                     <div>{item.name}</div>
                     <div>{item.symbol}</div>
@@ -62,7 +62,33 @@ const MRKListScreen = () => {
                     <div>
                       {item.number}
                     </div>
-                  </div>
+                  </div>}
+                  </>
+                })}
+              </div>
+            </div>
+            {/*  */}
+            <div class="custom-table col-md-6">
+              <div class="table-header sticky m-done">
+                <div>Sr No</div>
+                <div>Stock Name</div>
+                <div>Symbol</div>
+                <div>Stock Market</div>
+                <div>Number</div>
+              </div>
+              <div class="table-content">
+                {List && List.map((item ,index)=>{
+                    index = index +1;
+                    return <> {index > 50 && index <= 100 &&<div class="table-row" style={{ background: item.color }}>
+                    <div>{index}</div>
+                    <div>{item.name}</div>
+                    <div>{item.symbol}</div>
+                    <div>{item.market}</div>
+                    <div>
+                      {item.number}
+                    </div>
+                  </div>}
+                  </>
                 })}
               </div>
             </div>

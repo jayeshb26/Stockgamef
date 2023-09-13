@@ -1,0 +1,9 @@
+span.head {
+    width: 160px;
+    display: inline-block;
+    font-size: 16px;
+    text-align: left;
+}
+span.description {
+    margin-left: 10px;
+}

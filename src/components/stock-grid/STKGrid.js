@@ -40,7 +40,15 @@ const STKGrid = () => {
           position: BID_ARRAY,
           betPoint: total,
         });
+        const setPlace = {
+          gameName: "stockskill",
+          playerId: playerID,
+          position: BID_ARRAY,
+          betPoint: total,
+        }
+        localStorage.setItem('lastOrder',JSON.stringify(setPlace))
         // setListScreen(true);
+        // <PrintPos data={setPlace}/>
       } else {
         return false;
       }

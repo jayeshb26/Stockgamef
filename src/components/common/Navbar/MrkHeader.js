@@ -11,6 +11,7 @@ import { useSocket } from "../../Context/SocketContext";
 import Avatar from "react-avatar";
 import moment from "moment/moment";
 import Details from "../../user/Details/Details";
+import LastOrder from "../../user/lastorder/LastOrder";
 
 const MrkHeader = () => {
   const dispatch = useDispatch();
@@ -35,6 +36,7 @@ const MrkHeader = () => {
 
   const [socketData, setSocketData] = useState(getDefaultData);
   const [timer, setTimer] = useState(300);
+  const [lastOrder,setLastOrder] = useState(null)
   
 
   useEffect(() => {
@@ -62,6 +64,11 @@ const MrkHeader = () => {
     }
   },[timer])
 
+  useEffect(()=>{
+     setLastOrder(localStorage.getItem('lastOrder'))
+    console.log('lastOrder',lastOrder)
+  },[lastOrder])
+
   const formatTime = () => {
     const minutes = Math.floor(timer / 60);
     const remainingSeconds = timer % 60;
@@ -72,6 +79,9 @@ const MrkHeader = () => {
     dispatch(logOut());
     navigate("/login");
   };
+  const backTOMarket = () =>{
+    navigate('/market')
+  }
 
   return (
     <>
@@ -79,7 +89,7 @@ const MrkHeader = () => {
         <div className="navbar_wrapper">
           <ul>
             <li>
-              <span>Stock Skill</span>
+              <span className="c_pointer" onClick={backTOMarket}>Stock Skill</span>
             </li>
             <li>
               <span>
@@ -109,7 +119,7 @@ const MrkHeader = () => {
               </span>
             </li>
             <li>
-              <span>Last Order</span>
+              <span><LastOrder/></span>
             </li>
             {/* <li>
               <span>Last Point</span>
