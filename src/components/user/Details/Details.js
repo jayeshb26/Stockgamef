@@ -14,7 +14,7 @@ const Details = () => {
 
   return (
     <>
-      <span onClick={showModal}>Details</span>
+      <span className="c_pointer" onClick={showModal}>Details</span>
       <CommonModal show={modalShow} onHide={closeModal} title="Details">
         <div className="_details">
             <div className="detail_wrapper">

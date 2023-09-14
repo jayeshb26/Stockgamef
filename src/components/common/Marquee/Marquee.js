@@ -15,7 +15,7 @@ const Marquee = () => {
   },[mainData])
   return (
     <>
-      <marquee behavior="slide " direction="">
+      <marquee behavior="slide " direction="left">
         {
           mrqResult?.length ? mrqResult.map((result)=>{
             return <span className="mrq_text">{result.symbol} {result.number}-{result.status}</span>

@@ -2,16 +2,19 @@ import React, { useEffect, useState } from "react";
 import "./Footer.css";
 import ResultUI from "./ResultUI";
 import { useSocket } from "../../Context/SocketContext";
+import { Link } from "react-router-dom";
+import BarcodeGenrate from "../../user/Barcode/BarcodeGenrate";
 
 const Footer = ({ setReset, placeBid,modifiedValues,setListScreen }) => {
-  const { resultData,startGame } = useSocket();
+  const { resultData,startGame,mainData } = useSocket();
   const [result, setResult] = useState(resultData);
   const [isResultOpen, setIsResultOpen] = useState(false);
   const [totalPriceValue,setTotalPriceValue] = useState(0);
+  const [footerDetails,setFooterDetails] = useState([]);
+  
   useEffect(() => {
     if (resultData) {
       setResult(resultData?.data.data);
-      // console.log('resultData?.data',resultData?.data.data)
       setIsResultOpen(true)
     }
     if(startGame){
@@ -25,6 +28,11 @@ const Footer = ({ setReset, placeBid,modifiedValues,setListScreen }) => {
     setIsResultOpen(false);
     setListScreen(false)
   };
+
+  useEffect(()=>{
+    setFooterDetails(mainData?.data)
+  },[mainData])
+
   useEffect(()=>{
     var total = 0;
      modifiedValues.filter(async(item) => {
@@ -66,38 +74,15 @@ const Footer = ({ setReset, placeBid,modifiedValues,setListScreen }) => {
                   <button className="btn blue-btn" onClick={placeBid}>
                     Place Order
                   </button>
-                  {/* <div class="form-check">
-                        <input class="form-check-input" type="checkbox" value="" id="defaultCheck1" />
-                        <label class="form-check-label" for="defaultCheck1">
-                            Column
-                        </label>
-                    </div>
-                    <div class="form-check">
-                        <input class="form-check-input" type="checkbox" value="" id="defaultCheck1" />
-                        <label class="form-check-label" for="defaultCheck1">
-                            Row
-                        </label>
-                    </div> */}
+                </div>
+                <div className="barcode">
+                  {resultData && <BarcodeGenrate id="123"/>}
                 </div>
               </div>
               <div className="right_footer col-md-4">
                 <form>
-                  <div
-                    // style={{
-                    //   border: "1px solid #000",
-                    //   padding: "10px",
-                    //   display: "inline-block",
-                    // }}
-                  >
-                    {/* <BarcodeDisplay value="123456789" /> */}
-                    {/* <Barcode
-                      value={barcodeData}
-                      width={2}
-                      height={30}
-                      displayValue={false}
-                    /> */}
+                  <div>
                   </div>
-                  {/* <input type="text" className="qty_input" value={0} /> */}
                   <label htmlFor="Total Bid">Total Amount:</label>
                   <input type="text" className="price_input" value={totalPriceValue} />
                 </form>
@@ -106,28 +91,33 @@ const Footer = ({ setReset, placeBid,modifiedValues,setListScreen }) => {
           </div>
           <div className="bottom_footer o_hide">
             <div className="row">
-              <div className="site_links col-md-6 col-sm-12">
+              <div className="site_links col-md-3 col-sm-12">
                 <ul>
                   <li>
-                    <a href="javascript:void(0);" className="site_links">
+                    <Link to={footerDetails?.button1} target="_blanck" className="site_links">
                       Stock Skill -1
-                    </a>
+                    </Link>
                   </li>
                   <li>
-                    <a href="javascript:void(0);" className="site_links">
+                    <Link to={footerDetails?.button2} className="site_links">
                       Stock Skill -2
-                    </a>
+                    </Link>
                   </li>
                   <li>
-                    <a href="javascript:void(0);" className="site_links">
+                    <Link to={footerDetails?.button3} className="site_links">
                       Stock Skill -3
-                    </a>
+                    </Link>
                   </li>
                 </ul>
               </div>
-              <div className="footer_details col-md-6 col-sm-12">
+              <div className="col-md-6 col-sm-12">
+                <marquee behavior="scroll" className="text_notice" direction="left">
+                  {footerDetails?.notice}
+                </marquee>
+              </div>
+              <div className="footer_details col-md-3 col-sm-12">
                 <span>
-                  <strong>GST Number :</strong>24DKKPS2852A1ZM
+                  <strong>GST Number :</strong>{footerDetails?.gstin}
                 </span>
               </div>
             </div>

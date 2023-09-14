@@ -4,6 +4,8 @@ import { useSocket } from "../Context/SocketContext";
 import Footer from "../common/Footer/Footer";
 // import ListScreen from "../common/List-screen/ListScreen";
 import MRKListScreen from "../common/listScreen/ListScreen";
+import PrintPos from "../user/Print-pos/PrintPos";
+// import PrintPos from "../user/Print-pos/PrintPos";
 
 const GRID_SIZE = 10;
 const TOTAL_CELLS = GRID_SIZE * GRID_SIZE;
@@ -24,10 +26,17 @@ const STKGrid = () => {
   const [inputValue, setInputValue] = useState(null);
   const [status, setStatus] = useState(null);
   const [listScreen, setListScreen] = useState(false);
-  const [playerID,setPlayerID] = useState()
+  const [playerID,setPlayerID] = useState();
+  const [printData,setPrintData] = useState({
+    gameName: "stockskill",
+    playerId: null,
+    position: null,
+    betPoint: null,
+  })
+  const [isProcessing,setIsProcessing] = useState(false);
 
   var BID_ARRAY = [];
-
+  var setPlace = null
   const placeBid = () => {
     var total;
     modifiedValues.filter((bid) => {
@@ -40,13 +49,20 @@ const STKGrid = () => {
           position: BID_ARRAY,
           betPoint: total,
         });
-        const setPlace = {
+        // setPlace = {
+        //   gameName: "stockskill",
+        //   playerId: playerID,
+        //   position: BID_ARRAY,
+        //   betPoint: total,
+        // }
+        setPrintData({
           gameName: "stockskill",
           playerId: playerID,
           position: BID_ARRAY,
           betPoint: total,
-        }
-        localStorage.setItem('lastOrder',JSON.stringify(setPlace))
+        })
+        setIsProcessing(true);
+        localStorage.setItem('lastOrder',JSON.stringify(printData))
         // setListScreen(true);
         // <PrintPos data={setPlace}/>
       } else {
@@ -267,6 +283,7 @@ const STKGrid = () => {
               )}
             </div>
           </div>
+          {isProcessing && <PrintPos data={setPlace}/>}
         </>
       ) : (
         <MRKListScreen />

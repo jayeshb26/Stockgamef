@@ -63,7 +63,7 @@ const History = () => {
                           <td key={index}>{item.createDate}</td>
                           <td key={index}>{item.won.toFixed(2)}</td>
                           <td key={index}>{item.startPoint.toFixed(2)}</td>
-                          <td key={index}>{item.winPosition.symbol}</td>
+                          <td key={index}>{item.winPosition.symbol ? item.winPosition.symbol :'--'}</td>
                           <td key={index}>{item.bet}</td>
                         </tr>
                       );

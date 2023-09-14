@@ -1,41 +1,41 @@
-import React from 'react';
-import escpos from 'escpos';
-
-const device = new escpos.USB();
-const printer = new escpos.Printer(device);
+import React, { useEffect } from 'react';
+const { ThermalPrinter, CharacterSet, BreakLine } = require('node-thermal-printer');
 
 const PrintPos = () => {
-  const data = [
-    { heading: 'betclose', details: 1694460843.089 },
-    { heading: 'creditPoint', details: 4980 },
-    { heading: 'date', details: '2023-09-11 07:33:08' },
-  ];
-
-  const printData = () => {
+  const handlePrint = async () => {
+    const printer = new ThermalPrinter({
+      type: ThermalPrinter?.PrinterTypes?.STAR, // Printer type: 'star' or 'epson'
+      interface: 'tcp://203.88.145.206', // Printer interface (replace with your printer's IP)
+      characterSet: CharacterSet.SLOVENIA, // Printer character set - default: SLOVENIA
+      removeSpecialCharacters: false, // Removes special characters - default: false
+      lineCharacter: "=", // Set character for lines - default: "-"
+      breakLine: BreakLine.WORD, // Break line after WORD or CHARACTERS. Disabled with NONE - default: WORD
+      options: {
+        timeout: 5000, // Connection timeout (ms) [applicable only for network printers] - default: 3000
+      },
+    });
     try {
-      device.open(() => {
-        printer
-          .font('A')
-          .align('lt') // Left align the text
-          .style('bu')
-          .size(1, 1);
+      // Set printer properties and content
+      printer.alignCenter();
+      printer.print('Hello, Thermal Printer!');
+      printer.cut();
+      await printer.execute();
 
-        data.forEach((item) => {
-          printer.text(`${item.heading} : ${item.details}`);
-        });
-
-        printer.cut().close();
-      });
+      console.log('Print successful');
     } catch (error) {
-      console.error('Error printing:', error);
+      console.error('Printing error:', error);
     }
   };
 
+  useEffect(() => {
+    handlePrint()
+  }, []);
+
   return (
-    <div>
-      <button onClick={printData}>Print Data</button>
-    </div>
+    <>
+      
+    </>
   );
-}
+};
 
 export default PrintPos;

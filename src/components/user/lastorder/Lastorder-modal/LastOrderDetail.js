@@ -13,6 +13,9 @@ const LastOrderDetail = ({ onHide }) => {
     <CommonModal show={true} onHide={onHide} title="Last Order">
       <div className="lastorder_wapper">
         <div className="filed_wrapper">
+        <div className="filed">
+            <span>Player ID</span> : &nbsp; {lastOrder?.playerId}
+          </div>
           <div className="filed">
             <span>Stock Name</span> : &nbsp; {lastOrder?.position?.[0].name}
           </div>

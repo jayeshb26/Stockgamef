@@ -43,54 +43,56 @@ const MRKListScreen = () => {
       <div className="list_sreen">
         <div class="container-fluid">
           <div class="row">
-            <div class="custom-table col-md-6">
+            <div class="custom-table col-md-6 b-right">
               <div class="table-header sticky">
-                <div>Sr No</div>
-                <div>Stock Name</div>
-                <div>Symbol</div>
-                <div>Stock Market</div>
-                <div>Number</div>
+                <a>Sr No</a>
+                <a>Stock Name</a>
+                <a>Symbol</a>
+                <a>Stock Market</a>
+                <a>Number</a>
               </div>
-              <div class="table-content">
+              <ul class="table-content">
                 {List && List.map((item ,index)=>{
                     index = index +1;
-                    return <> {index <= 50 &&<div class="table-row" style={{ background: item.color }}>
-                    <div>{index}</div>
-                    <div>{item.name}</div>
-                    <div>{item.symbol}</div>
-                    <div>{item.market}</div>
-                    <div>
+                    return <li class="table-row" > {index <= 50 &&< >
+                    <a style={{ background: item.color }}>{index}</a>
+                    <a style={{ background: item.color }}>{item.name}</a>
+                    <a style={{ background: item.color }}>{item.symbol}</a>
+                    <a style={{ background: item.color }}>{item.market}</a>
+                    <a style={{ background: item.color }}>
                       {item.number}
-                    </div>
-                  </div>}
-                  </>
+                    </a>
+                  </>}
+                  </li>
                 })}
-              </div>
+              </ul>
             </div>
             {/*  */}
             <div class="custom-table col-md-6">
               <div class="table-header sticky m-done">
-                <div>Sr No</div>
-                <div>Stock Name</div>
-                <div>Symbol</div>
-                <div>Stock Market</div>
-                <div>Number</div>
+                <a>Sr No</a>
+                <a>Stock Name</a>
+                <a>Symbol</a>
+                <a>Stock Market</a>
+                <a>Number</a>
               </div>
-              <div class="table-content">
+              <ul class="table-content">
                 {List && List.map((item ,index)=>{
-                    index = index +1;
-                    return <> {index > 50 && index <= 100 &&<div class="table-row" style={{ background: item.color }}>
-                    <div>{index}</div>
-                    <div>{item.name}</div>
-                    <div>{item.symbol}</div>
-                    <div>{item.market}</div>
-                    <div>
+                    // index = 50
+                    index = index + 1;
+                    return<> {index >= 51 && index<=100 &&  <li class="table-row" >
+                    <a style={{ background: item.color }}>{index}</a>
+                    <a style={{ background: item.color }}>{item.name}</a>
+                    <a style={{ background: item.color }}>{item.symbol}</a>
+                    <a style={{ background: item.color }}>{item.market}</a>
+                    <a style={{ background: item.color }}>
                       {item.number}
-                    </div>
-                  </div>}
+                    </a>
+                  </li>
+                    }
                   </>
                 })}
-              </div>
+              </ul>
             </div>
           </div>
         </div>

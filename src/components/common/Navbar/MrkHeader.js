@@ -49,7 +49,6 @@ const MrkHeader = () => {
         betclose: moment.unix(newSocketData.betclose).format("LT"),
         creditPoint: newSocketData.creditPoint || "000",
       });
-
       // Store the updated data in local storage.
       localStorage.setItem("defaultData", JSON.stringify(socketData));
     }
@@ -66,7 +65,6 @@ const MrkHeader = () => {
 
   useEffect(()=>{
      setLastOrder(localStorage.getItem('lastOrder'))
-    console.log('lastOrder',lastOrder)
   },[lastOrder])
 
   const formatTime = () => {
@@ -111,7 +109,7 @@ const MrkHeader = () => {
               </span>
             </li>
             <li>
-              <span>{formatTime()}</span>
+              <span>{socketData.starttime} {formatTime()}</span>
             </li>
             <li>
               <span>
