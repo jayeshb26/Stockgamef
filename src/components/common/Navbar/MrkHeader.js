@@ -1,4 +1,3 @@
-
 import React, { useEffect, useState } from "react";
 import "./MrkHeader.css";
 import { Dropdown } from "react-bootstrap";
@@ -35,9 +34,20 @@ const MrkHeader = () => {
   };
 
   const [socketData, setSocketData] = useState(getDefaultData);
-  const [timer, setTimer] = useState(300);
-  const [lastOrder,setLastOrder] = useState(null)
+  const [timer, setTimer] = useState(
+    null
+  );
+  const [lastOrder, setLastOrder] = useState(null);
+  const [time, setTime] = useState(moment().format("LTS"));
   
+  useEffect(()=>{
+    setTimer(socketValue.mainData?.data?.resulttime -
+      socketValue?.mainData?.data?.starttime)
+  },[socketValue])
+  // const momentObj = moment.unix(socketValue.mainData?.data?.resulttime);
+  // const formattedTime = momentObj.format("HH:mm");
+  // const currentTime  = moment().format("HH:mm")
+  // console.log('Moment',  momentObj.format("HH:mm") )
 
   useEffect(() => {
     if (socketValue?.mainData) {
@@ -54,32 +64,49 @@ const MrkHeader = () => {
     }
   }, [socketValue]);
 
-  useEffect(()=>{
-    if(timer > 0){
-      const timerID = setTimeout(()=>{
+  useEffect(() => {
+    if (timer > 0) {
+      const timerID = setTimeout(() => {
         setTimer(timer - 1);
-      },1000)
-      return () => clearTimeout(timerID)
+      }, 1000);
+      return () => clearTimeout(timerID);
     }
-  },[timer])
+  }, [timer]);
 
-  useEffect(()=>{
-     setLastOrder(localStorage.getItem('lastOrder'))
-  },[lastOrder])
+  useEffect(() => {
+    setLastOrder(localStorage.getItem("lastOrder"));
+  }, [lastOrder]);
+
+  // const formatTime = () => {
+  //   const minutes = Math.floor(timer / 60);
+  //   const remainingSeconds = timer % 60;
+  //   return `${minutes}:${remainingSeconds < 10 ? '0' : ''}${remainingSeconds}`;
+  // };
 
   const formatTime = () => {
     const minutes = Math.floor(timer / 60);
     const remainingSeconds = timer % 60;
-    return `${minutes}:${remainingSeconds < 10 ? '0' : ''}${remainingSeconds}`;
+    return `${minutes}:${remainingSeconds < 10 ? "0" : ""}${remainingSeconds}`;
   };
+
+  useEffect(() => {
+    const timerID = setInterval(() => {
+      setTimer((prevTimer) => prevTimer - 1);
+      setTime(moment().format("LTS")); // Update the time every second
+    }, 1000);
+
+    return () => {
+      clearInterval(timerID); // Cleanup the interval on unmount
+    };
+  }, []);
 
   const logout = () => {
     dispatch(logOut());
     navigate("/login");
   };
-  const backTOMarket = () =>{
-    navigate('/market')
-  }
+  const backTOMarket = () => {
+    navigate("/market");
+  };
 
   return (
     <>
@@ -87,29 +114,28 @@ const MrkHeader = () => {
         <div className="navbar_wrapper">
           <ul>
             <li>
-              <span className="c_pointer" onClick={backTOMarket}>Stock Skill</span>
+              <span className="c_pointer" onClick={backTOMarket}>
+                Stock Skill
+              </span>
             </li>
             <li>
-              <span>
-                {socketData.date ? socketData.date : "00/00/0000"}
+              <span className="fiX_time">
+                {socketData.date ? socketData.date : "00/00/0000"} <br />
+                {time}
               </span>
             </li>
             <li>
               <span>
-                {socketData.starttime
-                  ? socketData.starttime
-                  : "00:00 AM/PM"}
+                {socketData.starttime ? socketData.starttime : "00:00 AM/PM"}
               </span>
             </li>
             <li>
               <span>
-                {socketData.resulttime
-                  ? socketData.resulttime
-                  : "00:00 AM/PM"}
+                {socketData.resulttime ? socketData.resulttime : "00:00 AM/PM"}
               </span>
             </li>
             <li>
-              <span>{socketData.starttime} {formatTime()}</span>
+              <span>{formatTime()}</span>
             </li>
             <li>
               <span>
@@ -117,17 +143,21 @@ const MrkHeader = () => {
               </span>
             </li>
             <li>
-              <span><LastOrder/></span>
+              <span>
+                <LastOrder />
+              </span>
             </li>
             {/* <li>
               <span>Last Point</span>
             </li> */}
             <li>
-              <span><Details/></span>
+              <span>
+                <Details />
+              </span>
             </li>
-            <li>
+            {/* <li>
               <span>Pre orders</span>
-            </li>
+            </li> */}
             <li>
               <Dropdown>
                 <Dropdown.Toggle variant="success" id="dropdown-basic">

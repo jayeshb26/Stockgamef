@@ -216,7 +216,6 @@ const STKGrid = () => {
     <>
       {!listScreen ? (
         <>
-          {" "}
           <div className="d-flex">
             <div className="top_black_block"></div>
             <div className="TopSTKGrid">

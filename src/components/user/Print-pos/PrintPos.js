@@ -5,7 +5,7 @@ const PrintPos = () => {
   const handlePrint = async () => {
     const printer = new ThermalPrinter({
       type: ThermalPrinter?.PrinterTypes?.STAR, // Printer type: 'star' or 'epson'
-      interface: 'tcp://203.88.145.206', // Printer interface (replace with your printer's IP)
+      interface: 'localhost/printer', // localhost/printerPrinter interface (replace with your printer's IP)
       characterSet: CharacterSet.SLOVENIA, // Printer character set - default: SLOVENIA
       removeSpecialCharacters: false, // Removes special characters - default: false
       lineCharacter: "=", // Set character for lines - default: "-"
@@ -14,6 +14,7 @@ const PrintPos = () => {
         timeout: 5000, // Connection timeout (ms) [applicable only for network printers] - default: 3000
       },
     });
+    console.log('printer',printer)
     try {
       // Set printer properties and content
       printer.alignCenter();
