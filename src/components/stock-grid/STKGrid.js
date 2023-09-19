@@ -14,7 +14,7 @@ const ARROW_DOWN = "ArrowDown";
 const ARROW_LEFT = "ArrowLeft";
 const ARROW_RIGHT = "ArrowRight";
 const TAB = "Tab";
-const NUMBER_REGX = /^\d{0,8}$/;
+// const NUMBER_REGX = /^\d{0,8}$/;
 
 const STKGrid = () => {
   const { emitEvent, mainData, statues,betClose } = useSocket();

@@ -4,7 +4,6 @@ import Login from '../components/Auth/Login';
 import Home from '../components/home/Home';
 import Notfound from '../components/Notfound/Notfound';
 import History from '../components/user/History/History';
-import MRKListScreen from '../components/common/listScreen/ListScreen';
 import Reward from '../components/user/Reward/Reward';
 
 // Simulated authentication state

@@ -68,7 +68,7 @@ const Footer = ({ setReset, placeBid, modifiedValues, setListScreen }) => {
       orderId: "64f30f0d84490e050b1fb5fb"
     });
   };
-  console.log("rewardData", rewardData);
+  
   return (
     <>
       <div className="footer_wrapper">
