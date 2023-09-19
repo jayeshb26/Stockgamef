@@ -6,6 +6,8 @@ import { AppConstant } from "../../../AppConstant";
 import { Table } from "react-bootstrap";
 import "./History.css";
 import MrkHeader from "../../common/Navbar/MrkHeader";
+import Breadcumbs from "../../common/Breadcumbs/Breadcumbs";
+import { BreadcumbsArray } from "../../../Utilities";
 
 const History = () => {
   const socket = useSocket();
@@ -37,6 +39,7 @@ const History = () => {
       <div className="history_wrapper">
         <div className="container">
           <div className="row">
+          <Breadcumbs LinkData={BreadcumbsArray}/>
             <div className="history_details">
               <Table responsive="sm">
                 <thead className="postion_sticky">
@@ -60,7 +63,7 @@ const History = () => {
                           <td key={index}>{item.createDate}</td>
                           <td key={index}>{item.won.toFixed(2)}</td>
                           <td key={index}>{item.startPoint.toFixed(2)}</td>
-                          <td key={index}>{item.winPosition.symbol}</td>
+                          <td key={index}>{item.winPosition.symbol ? item.winPosition.symbol :'--'}</td>
                           <td key={index}>{item.bet}</td>
                         </tr>
                       );

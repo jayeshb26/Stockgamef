@@ -1,0 +1,78 @@
+.at-reward-card {
+    z-index: 999999;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    display: flex;
+    flex-direction: column;
+    background: var(--bg-semi-dark);
+    width: 500px;
+    height: 360px;
+    border-radius: 4px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+    font-family: "Open Sans", sans-serif;
+    overflow: hidden;
+    transform: translate(-50%, -50%);
+  }
+  .at-reward-card__header {
+    position: relative;
+    background: var(--blue-color);
+    /* height: 140px; */
+    height: 80px;
+    margin: 0 0 60px;
+  }
+  .at-reward-card__thumbnail {
+    position: absolute;
+    /* top: 60px; */
+    top: 20px;
+    left: 50%;
+    display: block;
+    margin: 0 auto;
+    transform: translateX(-50%);
+    width: 80px;
+  }
+  .at-reward-card__content {
+    flex-grow: 1;
+    text-align: center;
+  }
+  .at-reward-card__content h2 {
+    margin: 0 0 10px;
+    padding: 0;
+    color: var(--blue-color);
+    font-size: 20px;
+  }
+  .at-reward-card__content p {
+    margin: 0;
+    padding: 0;
+    color: var(--white-color);
+    font-size: 16px;
+  }
+  .at-reward-card__footer {
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    height: 60px;
+  }
+  .at-reward-card__button {
+    outline: none;
+    display: block;
+    background: var(--bg-semi-dark);
+    width: 100%;
+    border: 0;
+    margin: 0 1px;
+    font-size: 18px;
+    line-height: 60px;
+    cursor: pointer;
+  }
+  .at-reward-card__button:hover {
+    background: var(--blue-color);
+  }
+  .at-reward-card__button:first-child {
+    margin-left: 0;
+    color: #cccccc;
+  }
+  .at-reward-card__button:last-child {
+    margin-right: 0;
+    color: var(--white-color);
+    font-weight: 600;
+  }

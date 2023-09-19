@@ -18,6 +18,8 @@ export const SocketProvider = ({ children }) => {
   const [resultData, setResultData] = useState(null);
   const [statues, setStatues] = useState(1);
   const [betClose, setBetClose] = useState(false);
+  const [rewardData, setRewardData] = useState(null);
+
 
   var newSocket;
 
@@ -49,6 +51,11 @@ export const SocketProvider = ({ children }) => {
       }
       else if(data.en == "bet closed"){
         setBetClose(true)
+      }
+      else if (data.en == "reward"){
+        console.log('DATA',data)
+        setRewardData(data);
+        setStatues(data.status);
       }
       else{
         setMainData(null)
@@ -92,7 +99,8 @@ export const SocketProvider = ({ children }) => {
     startGame,
     resultData,
     statues,
-    betClose
+    betClose,
+    rewardData
   };
   return (
     <SocketContext.Provider value={contextValue}>{children}</SocketContext.Provider>

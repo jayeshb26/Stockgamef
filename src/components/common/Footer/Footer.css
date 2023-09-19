@@ -24,6 +24,7 @@
 .right_footer form{
     float: right;
     text-align: right;
+    height: 100%;
 }
 
 /* .left_footer ul{
@@ -61,7 +62,7 @@ a.site_links{
     font-size: 13px;
 }
 .check_box{
-    display: flex;
+    display: inline-block;
     justify-content: space-evenly;
     font-size: var(--regular-font);
 }
@@ -73,4 +74,42 @@ a.site_links{
 }
 .form-check{
     margin-top: 3px;
+}
+.text_notice{
+    text-transform: uppercase;
+    font-weight: 500;
+}
+.center_screen{
+    display: flex;
+    justify-content: space-around;
+    align-items: self-start;
+}
+.barcode{
+    display: inline-block;
+}
+.barcode canvas {
+    height: 40px;
+    width: 130px;
+    background: #fff;
+    padding: 5px;
+}
+.footer_details{
+    text-align: right;
+}
+.reward{
+    display: flex;
+    height: 100%;
+}
+.reward input{
+    max-width: 200px;
+    height: 100%;
+}
+.claim_btn{
+    font-size: 14px;
+    line-height: 16px;
+    padding: 5px;
+    max-width: 110px;
+    width: 100%;
+    border-radius: 0px;
+    margin-left: 6px;
 }

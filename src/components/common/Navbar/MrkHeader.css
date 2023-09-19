@@ -136,3 +136,10 @@
     background-color: var(--white-color) !important;
     color: #000 !important;
 }
+.fiX_time {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    margin-top: -8px;
+    font-size: 13.5px;
+}

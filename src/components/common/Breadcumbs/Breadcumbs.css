@@ -1,0 +1,25 @@
+.breadcumbs li {
+    display: inline-block;
+    float: left;
+    margin: 0.5em 0;
+}
+.breadcumbs li::after {
+    content: '';
+    height: 16px;
+    width: 16px;
+    background: url('../../assets/cd-custom-separator.svg') no-repeat center center;
+    vertical-align: middle;
+    display: inline-block;
+}
+.breadcumbs li a {
+    display: inline-block;
+    font-size: 14px;
+    color: var(--white-color);
+    text-decoration: none;
+}
+.breadcumbs li:last-child::after {
+    display: none;
+}
+.breadcumbs li > a.active {
+    color: var(--green-color);
+}

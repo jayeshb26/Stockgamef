@@ -10,12 +10,17 @@ const Marquee = () => {
 
   useEffect(()=>{
     if(mainData){
-      setMrqResult(mainData?.data?.alstresult)
+      if(mainData?.data?.alstresult){
+        setMrqResult(mainData?.data?.alstresult)
+      }else{
+        setMrqResult(mainData?.data?.lastresults)
+      }
     }
   },[mainData])
+  
   return (
     <>
-      <marquee behavior="slide " direction="">
+      <marquee behavior="slide " direction="left">
         {
           mrqResult?.length ? mrqResult.map((result)=>{
             return <span className="mrq_text">{result.symbol} {result.number}-{result.status}</span>

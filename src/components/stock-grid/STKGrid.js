@@ -4,6 +4,8 @@ import { useSocket } from "../Context/SocketContext";
 import Footer from "../common/Footer/Footer";
 // import ListScreen from "../common/List-screen/ListScreen";
 import MRKListScreen from "../common/listScreen/ListScreen";
+import PrintPos from "../user/Print-pos/PrintPos";
+// import PrintPos from "../user/Print-pos/PrintPos";
 
 const GRID_SIZE = 10;
 const TOTAL_CELLS = GRID_SIZE * GRID_SIZE;
@@ -12,7 +14,7 @@ const ARROW_DOWN = "ArrowDown";
 const ARROW_LEFT = "ArrowLeft";
 const ARROW_RIGHT = "ArrowRight";
 const TAB = "Tab";
-const NUMBER_REGX = /^\d{0,8}$/;
+// const NUMBER_REGX = /^\d{0,8}$/;
 
 const STKGrid = () => {
   const { emitEvent, mainData, statues,betClose } = useSocket();
@@ -24,10 +26,17 @@ const STKGrid = () => {
   const [inputValue, setInputValue] = useState(null);
   const [status, setStatus] = useState(null);
   const [listScreen, setListScreen] = useState(false);
-  const [playerID,setPlayerID] = useState()
+  const [playerID,setPlayerID] = useState();
+  const [printData,setPrintData] = useState({
+    gameName: "stockskill",
+    playerId: null,
+    position: null,
+    betPoint: null,
+  })
+  const [isProcessing,setIsProcessing] = useState(false);
 
   var BID_ARRAY = [];
-
+  var setPlace = null
   const placeBid = () => {
     var total;
     modifiedValues.filter((bid) => {
@@ -40,7 +49,22 @@ const STKGrid = () => {
           position: BID_ARRAY,
           betPoint: total,
         });
+        // setPlace = {
+        //   gameName: "stockskill",
+        //   playerId: playerID,
+        //   position: BID_ARRAY,
+        //   betPoint: total,
+        // }
+        setPrintData({
+          gameName: "stockskill",
+          playerId: playerID,
+          position: BID_ARRAY,
+          betPoint: total,
+        })
+        setIsProcessing(true);
+        localStorage.setItem('lastOrder',JSON.stringify(printData))
         // setListScreen(true);
+        // <PrintPos data={setPlace}/>
       } else {
         return false;
       }
@@ -192,7 +216,6 @@ const STKGrid = () => {
     <>
       {!listScreen ? (
         <>
-          {" "}
           <div className="d-flex">
             <div className="top_black_block"></div>
             <div className="TopSTKGrid">
@@ -259,6 +282,7 @@ const STKGrid = () => {
               )}
             </div>
           </div>
+          {isProcessing && <PrintPos data={setPlace}/>}
         </>
       ) : (
         <MRKListScreen />

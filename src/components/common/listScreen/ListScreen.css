@@ -44,27 +44,27 @@
    */
 .custom-table {
   text-align: center;
-  width: 100%;
-  min-width: 1024px;
+  /* width: 100%;
+  min-width: 1024px; */
   display: inline-block;
   background: #000;
 }
-.custom-table .table-header > div,
-.custom-table .table-row > div {
-  display: inline;
-  width: 20%;
+.custom-table .table-header > a,
+.custom-table .table-row > a {
+  display: inline-block;
+  width: 25%;
   float: left;
 }
-.custom-table .table-header > div:first-child,
-.custom-table .table-row > div:first-child {
-  width: 5%;
+.custom-table .table-header > a:first-child,
+.custom-table .table-row > a:first-child {
+  width: 11%;
 }
-.custom-table .table-header > div:nth-child(2),
-.custom-table .table-row > div:nth-child(2) {
-  width: 35%;
+.custom-table .table-header > a:nth-child(2),
+.custom-table .table-row > a:nth-child(2) {
+  width: 38%;
 }
-.custom-table .table-header > div:last-child,
-.custom-table .table-row > div:last-child {
+.custom-table .table-header > a:last-child,
+.custom-table .table-row > a:last-child {
   border: none;
 }
 .custom-table .date-column {
@@ -83,8 +83,9 @@
   display: inline-block;
   width: 100%;
   height: auto;
+  display: flex;
 }
-.custom-table .table-header > div {
+.custom-table .table-header > a {
   border-right: 1px solid #fff;
   white-space: nowrap;
   text-overflow: ellipsis;
@@ -92,23 +93,43 @@
   padding: 8px 0;
 }
 .custom-table .table-row {
-  display: inline-block;
+  /* display: inline-block; */
   width: 100%;
-  height: auto;
+  /* height: auto; */
   /* border-bottom: 1px solid #ccc; */
   /* padding: 10px 0; */
-  line-height: 2.3;
+  line-height: 1.5;
+  font-size: 14px;
+  display: flex;
 }
-.custom-table .table-row:after {
+/* .custom-table .table-row:after {
   visibility: hidden;
   display: block;
   font-size: 0;
   content: " ";
   clear: both;
   height: 0;
-}
+} */
 .sticky {
   position: sticky;
   top: 0;
   z-index: 10;
+}
+@media screen and (max-width:767px) {
+  .m-done{
+    display: none !important;
+  }
+}
+.list_sreen .col-md-4{
+  padding: 0.01rem;
+}
+.b-right{
+  border-right: 1px solid #cbcbcb;
+}
+.table-row a ,.table-header a{
+  margin-right: 0.16rem;
+  font-size: 14px;
+}
+.table-header a{
+  padding: 4px 0px !important;
 }
