@@ -39,6 +39,8 @@ const MrkHeader = () => {
   const [time, setTime] = useState(moment().format("LTS"));
 
   useEffect(() => {
+    // const currentTime = moment().format('LT');
+    // const unixCurrentTime = moment().unix(currentTime)
     const currentTime = Date.now();
     const unixCurrentTime = (currentTime / 1000).toFixed(3);
     if (socketValue?.mainData) {
@@ -147,17 +149,11 @@ const MrkHeader = () => {
                 <LastOrder />
               </span>
             </li>
-            {/* <li>
-              <span>Last Point</span>
-            </li> */}
             <li>
               <span>
                 <Details />
               </span>
             </li>
-            {/* <li>
-              <span>Pre orders</span>
-            </li> */}
             <li>
               <Dropdown>
                 <Dropdown.Toggle variant="success" id="dropdown-basic">

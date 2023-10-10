@@ -9,6 +9,7 @@ const LastOrderDetail = ({ onHide }) => {
     const lastOrderDetail = JSON.parse(localStorage.getItem("lastOrder"));
     setLastOrder(lastOrderDetail);
   }, []);
+  console.log("lastOrderDetail", lastOrder);
   return (
     <CommonModal show={true} onHide={onHide} title="Last Order">
       <div className="lastorder_wapper">
