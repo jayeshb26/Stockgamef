@@ -5,6 +5,7 @@ import Home from '../components/home/Home';
 import Notfound from '../components/Notfound/Notfound';
 import History from '../components/user/History/History';
 import Reward from '../components/user/Reward/Reward';
+import HowItWorks from '../components/pages/HowItWorks';
 
 // Simulated authentication state
 const isAuthenticated = localStorage.getItem('authToken');
@@ -19,7 +20,7 @@ const AppRouter = () => {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/login" element={<Login />} />
-        {/* <PrivateRoute path="/market" element={<Market />} /> */}
+        <Route path="/how-it-works" element={<HowItWorks />} />
         <Route element={<PrivateRoute />}>
             <Route path="/market" element={<Market />} />
         </Route>
