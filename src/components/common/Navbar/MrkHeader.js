@@ -34,22 +34,22 @@ const MrkHeader = () => {
   };
 
   const [socketData, setSocketData] = useState(getDefaultData);
-  const [timer, setTimer] = useState(
-    null
-  );
+  const [timer, setTimer] = useState(null);
   const [lastOrder, setLastOrder] = useState(null);
   const [time, setTime] = useState(moment().format("LTS"));
-  
-  useEffect(()=>{
-    setTimer(socketValue.mainData?.data?.resulttime -
-      socketValue?.mainData?.data?.starttime)
-  },[socketValue])
-  // const momentObj = moment.unix(socketValue.mainData?.data?.resulttime);
-  // const formattedTime = momentObj.format("HH:mm");
-  // const currentTime  = moment().format("HH:mm")
-  // console.log('Moment',  momentObj.format("HH:mm") )
 
   useEffect(() => {
+    const currentTime = Date.now();
+    const unixCurrentTime = (currentTime / 1000).toFixed(3);
+    if (socketValue?.mainData) {
+      // setTimer(socketValue.mainData?.data?.resulttime -
+      //   socketValue?.mainData?.data?.starttime)
+      setTimer(
+        Math.floor(
+          socketValue.mainData?.data?.resulttime - Number(unixCurrentTime)
+        )
+      );
+    }
     if (socketValue?.mainData) {
       const newSocketData = socketValue.mainData?.data;
       setSocketData({
@@ -65,38 +65,38 @@ const MrkHeader = () => {
   }, [socketValue]);
 
   useEffect(() => {
-    if (timer > 0) {
-      const timerID = setTimeout(() => {
-        setTimer(timer - 1);
-      }, 1000);
-      return () => clearTimeout(timerID);
-    }
-  }, [timer]);
-
-  useEffect(() => {
     setLastOrder(localStorage.getItem("lastOrder"));
   }, [lastOrder]);
 
-  // const formatTime = () => {
-  //   const minutes = Math.floor(timer / 60);
-  //   const remainingSeconds = timer % 60;
-  //   return `${minutes}:${remainingSeconds < 10 ? '0' : ''}${remainingSeconds}`;
-  // };
-
   const formatTime = () => {
-    const minutes = Math.floor(timer / 60);
-    const remainingSeconds = timer % 60;
-    return `${minutes}:${remainingSeconds < 10 ? "0" : ""}${remainingSeconds}`;
+    if (timer > 0) {
+      const minutes = Math.floor(timer / 60);
+      const remainingSeconds = timer % 60;
+      return `${minutes}:${
+        remainingSeconds < 10 ? "0" : ""
+      }${remainingSeconds}`;
+    } else {
+      return `00:00`;
+    }
   };
 
+
   useEffect(() => {
-    const timerID = setInterval(() => {
+    let timerID;
+
+    const updateTimer = () => {
       setTimer((prevTimer) => prevTimer - 1);
-      setTime(moment().format("LTS")); // Update the time every second
-    }, 1000);
+      setTime(moment().format("LTS"));
+
+      // Recursive setTimeout to update the timer every second
+      timerID = setTimeout(updateTimer, 1000);
+    };
+
+    // Start the timer
+    updateTimer();
 
     return () => {
-      clearInterval(timerID); // Cleanup the interval on unmount
+      clearTimeout(timerID); // Cleanup the setTimeout on unmount
     };
   }, []);
 

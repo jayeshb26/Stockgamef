@@ -14,7 +14,7 @@ const ARROW_DOWN = "ArrowDown";
 const ARROW_LEFT = "ArrowLeft";
 const ARROW_RIGHT = "ArrowRight";
 const TAB = "Tab";
-const NUMBER_REGX = /^\d{0,8}$/;
+// const NUMBER_REGX = /^\d{0,8}$/;
 
 const STKGrid = () => {
   const { emitEvent, mainData, statues,betClose } = useSocket();
@@ -49,12 +49,6 @@ const STKGrid = () => {
           position: BID_ARRAY,
           betPoint: total,
         });
-        // setPlace = {
-        //   gameName: "stockskill",
-        //   playerId: playerID,
-        //   position: BID_ARRAY,
-        //   betPoint: total,
-        // }
         setPrintData({
           gameName: "stockskill",
           playerId: playerID,
@@ -63,8 +57,6 @@ const STKGrid = () => {
         })
         setIsProcessing(true);
         localStorage.setItem('lastOrder',JSON.stringify(printData))
-        // setListScreen(true);
-        // <PrintPos data={setPlace}/>
       } else {
         return false;
       }

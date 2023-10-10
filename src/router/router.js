@@ -4,7 +4,6 @@ import Login from '../components/Auth/Login';
 import Home from '../components/home/Home';
 import Notfound from '../components/Notfound/Notfound';
 import History from '../components/user/History/History';
-import MRKListScreen from '../components/common/listScreen/ListScreen';
 import Reward from '../components/user/Reward/Reward';
 
 // Simulated authentication state
@@ -27,9 +26,9 @@ const AppRouter = () => {
         <Route element={<PrivateRoute />}>
             <Route path="/market/history" element={<History/>} />
         </Route>
-        <Route element={<PrivateRoute />}>
+        {/* <Route element={<PrivateRoute />}>
             <Route path="/market/list" element={<Reward/>} />
-        </Route>
+        </Route> */}
         <Route path="*" element={<Notfound />} />
       </Routes>
     </BrowserRouter>
