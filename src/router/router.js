@@ -26,9 +26,9 @@ const AppRouter = () => {
         <Route element={<PrivateRoute />}>
             <Route path="/market/history" element={<History/>} />
         </Route>
-        <Route element={<PrivateRoute />}>
+        {/* <Route element={<PrivateRoute />}>
             <Route path="/market/list" element={<Reward/>} />
-        </Route>
+        </Route> */}
         <Route path="*" element={<Notfound />} />
       </Routes>
     </BrowserRouter>

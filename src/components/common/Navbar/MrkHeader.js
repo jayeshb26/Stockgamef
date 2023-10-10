@@ -149,17 +149,11 @@ const MrkHeader = () => {
                 <LastOrder />
               </span>
             </li>
-            {/* <li>
-              <span>Last Point</span>
-            </li> */}
             <li>
               <span>
                 <Details />
               </span>
             </li>
-            {/* <li>
-              <span>Pre orders</span>
-            </li> */}
             <li>
               <Dropdown>
                 <Dropdown.Toggle variant="success" id="dropdown-basic">
