@@ -1,5 +1,6 @@
 import React from "react";
-import './PageFooter.css'
+import "./PageFooter.css";
+import { Link } from "react-router-dom";
 
 const PageFooter = () => {
   return (
@@ -10,19 +11,19 @@ const PageFooter = () => {
             <div class="col-lg-7">
               <ul class="nav justify-content-center justify-content-sm-start">
                 <li class="nav-item">
-                  <a class="nav-link ml-0" href="contact.html">
-                    CONTACT US
-                  </a>
+                  <Link class="nav-link" to={"/how-it-works"}>
+                    How It's Work
+                  </Link>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link" href="#">
+                  <Link class="nav-link" to={"/terms-and-conditions"}>
                     TERMS OF USE
-                  </a>
+                  </Link>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link" href="#">
-                    PRIVACY POLICY
-                  </a>
+                  <Link class="nav-link" to={"/faq"}>
+                    FAQs
+                  </Link>
                 </li>
               </ul>
             </div>
@@ -32,9 +33,7 @@ const PageFooter = () => {
             <div class="col-lg-7 text-center text-sm-start">
               <p class="para">
                 Copyright © 2023. by &nbsp;
-                <a href="javascript:void(0);">
-                  Stock Skill
-                </a>
+                <a href="javascript:void(0);">Stock Skill</a>
               </p>
             </div>
             <div class="col-lg-5 text-center text-sm-start text-lg-end">

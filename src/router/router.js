@@ -4,8 +4,9 @@ import Login from '../components/Auth/Login';
 import Home from '../components/home/Home';
 import Notfound from '../components/Notfound/Notfound';
 import History from '../components/user/History/History';
-import Reward from '../components/user/Reward/Reward';
 import HowItWorks from '../components/pages/HowItWorks';
+import TermsAndCondition from '../components/pages/terms-and-condition/TermsAndCondition';
+import FAQS from '../components/pages/FAQs/FAQS';
 
 // Simulated authentication state
 const isAuthenticated = localStorage.getItem('authToken');
@@ -21,6 +22,8 @@ const AppRouter = () => {
         <Route path="/" element={<Home />} />
         <Route path="/login" element={<Login />} />
         <Route path="/how-it-works" element={<HowItWorks />} />
+        <Route path="/terms-and-conditions" element={<TermsAndCondition />} />
+        <Route path="/faq" element={<FAQS />} />
         <Route element={<PrivateRoute />}>
             <Route path="/market" element={<Market />} />
         </Route>

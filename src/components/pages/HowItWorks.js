@@ -1,26 +1,22 @@
 import React from "react";
 import "./HowItWorks.css";
-import { Link } from "react-router-dom";
 import PageFooter from "./page-footer/PageFooter";
+import TopSection from "./TopSection/TopSection";
 
 const HowItWorks = () => {
+  const sectionObj = {
+    title:'How does it work',
+    gotoLink:{
+      link:'/',
+      text:"Home"
+    },
+    activeLink:{
+      text:'How does it work'
+    }
+  }
   return (
     <div>
-      <div className="breadcrumbs">
-        <div className="container">
-          <div className="row">
-            <div className="col-md-6 vertical">
-              <h4>How It's Works</h4>
-            </div>
-            <div className="col-md-6 vertical">
-              <div className="text">
-                <Link to={"/"}>Home</Link>
-                <a href="javascript:void(0);">How It's Works</a>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
+      <TopSection sectionObj={sectionObj}/>
       <main className="mt-5">
         <div class="container">
           <div class="work_wrapper text-center mb-5">
