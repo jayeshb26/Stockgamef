@@ -1,7 +1,7 @@
 import React from "react";
 import "./Home.css";
 import { Link } from "react-router-dom";
-
+import PageFooter from "../pages/page-footer/PageFooter";
 const Home = () => {
   return (
     <>
@@ -26,6 +26,12 @@ const Home = () => {
                         <span className="icon-text">Stock skill</span>
                       </a>
                     </li>
+                    <li>
+                      <Link to={"/how-it-works"}>
+                        <i class="fas fa-th-list"></i>
+                        <span className="icon-text">How It's works</span>
+                      </Link>
+                    </li>
                   </ul>
                 </div>
               </div>
@@ -47,6 +53,9 @@ const Home = () => {
             </span>
           </div>
         </main>
+        <div className="footer_sec">
+          <PageFooter />
+        </div>
       </div>
     </>
   );
