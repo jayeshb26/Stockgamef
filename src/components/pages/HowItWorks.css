@@ -1,0 +1,120 @@
+.breadcrumbs{
+    height: 80px;
+    border-bottom: 1px solid #cbcbcb;
+}
+.vertical{
+    display: flex;
+    align-items: center;
+}
+.breadcrumbs .text{
+    text-align: right;
+    width: 100%;
+}
+.text a::after {
+    content: '';
+    border-right: 2px solid #cbcbcb;
+    position: absolute;
+    right: 0;
+    height: 100%;
+    top: 0;
+}
+.text a {
+    font-size: 15px !important;
+    padding-right: 10px;
+    position: relative;
+    margin-left: 10px;
+    color: #fff;
+    text-decoration: none;
+}
+.text a:last-child:after{
+    display: none;
+}
+.work_row {
+    padding-bottom: 90px;
+}
+.content_wrapper {
+    width: 245px;
+    height: 245px;
+    margin: auto;
+    border: 1px solid rgba(99, 66, 255, 0.1);
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+    -ms-border-radius: 50%;
+    border-radius: 50%;
+}
+.content {
+    width: 215px;
+    height: 215px;
+    margin: auto;
+    padding: 15px;
+    background-color: rgba(146, 164, 255, 0.149);
+    background-clip: content-box;
+    border: 1px solid rgba(99, 66, 255, 0.2);
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+    -ms-border-radius: 50%;
+    border-radius: 50%;
+}
+.content_wrapper .content img {
+    max-width: 144px;
+    height: 102px;
+}
+.arrow_container::before {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: -95px;
+    width: 52px;
+    height: 21px;
+    /* background-image: url('/images/arrow_left.png'); */
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: center;
+}
+
+.trading-tools-content h2 {
+    font-size: 38px;
+    margin-bottom: 40px;
+}
+
+.list-unstyled {
+    padding-left: 0;
+    list-style: none;
+}
+
+.trading-tools-content .features-list li {
+    margin-bottom: 30px;
+    padding-left: 42px;
+}
+
+.trading-tools-content .features-list li .number {
+    top: 0;
+    left: 0;
+    line-height: 1;
+    position: absolute;
+    color: #f3f3f3;
+    font-size: 40px;
+    font-weight: 800;
+}
+
+.trading-tools-content .features-list li h3 {
+    font-size: 22px;
+    margin-bottom: 12px;
+}
+
+.features-list  p {
+    color: #f2f2f2;
+    font-size: 16px !important;
+}
+
+.features-list p:last-child {
+    margin-bottom: 0;
+}
+
+.trading-tools-image img {
+    height: auto;
+    max-width: 100%;
+    border: none;
+    border-radius: 0;
+    box-shadow: none;
+}

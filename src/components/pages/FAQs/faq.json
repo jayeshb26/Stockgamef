@@ -1,0 +1,34 @@
+{
+    "faqs":[
+        {
+            "id":"1",
+            "title":"What is trading on PlayerTrader",
+            "detail":"Trading refers to the buying and selling of shares of players on the Player Trader Platform",
+            "open":false
+        },
+        {
+            "id":"2",
+            "title":" How do I make a deposit",
+            "detail":"Trading refers to the buying and selling of shares of players on the Player Trader Platform",
+            "open":false
+        },
+        {
+            "id":"3",
+            "title":"Is my money safe",
+            "detail":"Trading refers to the buying and selling of shares of players on the Player Trader Platform",
+            "open":false
+        },
+        {
+            "id":"4",
+            "title":"What drives a player's stock",
+            "detail":"Trading refers to the buying and selling of shares of players on the Player Trader Platform",
+            "open":false
+        },
+        {
+            "id":"5",
+            "title":"What is reward",
+            "detail":"Trading refers to the buying and selling of shares of players on the Player Trader Platform",
+            "open":false
+        }
+    ]
+}

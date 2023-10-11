@@ -1,0 +1,16 @@
+.footer_nav li a {
+    color: #fff;
+}
+.footer_nav li a:hover {
+    color: #fff;
+}
+.para {
+    font-size: 18px;
+    font-weight: 400;
+    line-height: 1.556;
+    color: #fafaff;
+}
+.para a{
+    color: #fff;
+    text-decoration: none;
+}
